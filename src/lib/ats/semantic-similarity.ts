@@ -1,4 +1,4 @@
-import { env } from "@/lib/env";
+import { env } from "../env";
 import { calculateTFIDFSimilarity } from "./tfidf-similarity";
 import { extractCleanTokens } from "./normalizer";
 

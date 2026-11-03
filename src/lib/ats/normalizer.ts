@@ -1,5 +1,5 @@
 import { getCanonicalSkill, areAliases } from "./aliases";
-import { STOP_WORDS } from "@/lib/ai/skills-dictionary";
+import { STOP_WORDS } from "../ai/skills-dictionary";
 
 /**
  * Normalizes raw text:

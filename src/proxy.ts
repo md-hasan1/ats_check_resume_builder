@@ -13,11 +13,21 @@ const protectedRoutes = [
   "/settings",
   "/billing",
   "/admin",
+  "/jobs",
+  "/candidates",
+  "/pipeline",
+  "/interviews",
+  "/team",
+  "/my-resumes",
+  "/cv-builder",
+  "/cover-letter",
+  "/interview-prep",
+  "/linkedin-analyzer",
 ];
 
 const authRoutes = ["/login", "/register", "/forgot-password", "/reset-password"];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Check if the path is a protected route
@@ -61,9 +71,22 @@ export const config = {
     "/analysis/:path*",
     "/reports/:path*",
     "/settings/:path*",
+    "/billing/:path*",
+    "/admin/:path*",
+    "/jobs/:path*",
+    "/candidates/:path*",
+    "/pipeline/:path*",
+    "/interviews/:path*",
+    "/team/:path*",
+    "/my-resumes/:path*",
+    "/cv-builder/:path*",
+    "/cover-letter/:path*",
+    "/interview-prep/:path*",
+    "/linkedin-analyzer/:path*",
     "/login",
     "/register",
     "/forgot-password",
     "/reset-password",
   ],
 };
+

@@ -35,6 +35,17 @@ model User {
   interviewPreps       InterviewPrep[]
   blogComments         BlogComment[]
 
+  // ATS SaaS Multi-Tenant Relations
+  organizationMembers    OrganizationMember[]
+  invitationsSent        Invitation[]              @relation("InvitedBy")
+  jobsCreated            Job[]                     @relation("JobCreator")
+  stageTransitions       ApplicationStageHistory[] @relation("StageMover")
+  interviewerAssignments Interviewer[]
+  interviewFeedbacks     InterviewFeedback[]       @relation("InterviewerUser")
+  candidateNotes         CandidateNote[]           @relation("NoteAuthor")
+  activityLogs           ActivityLog[]             @relation("ActivityUser")
+  notifications          Notification[]            @relation("NotificationUser")
+
   @@map("users")
 }
 
@@ -411,8 +422,10 @@ enum ReportStatus {
 
 enum SubscriptionPlan {
   FREE
+  STARTER
   PRO
   BUSINESS
+  ENTERPRISE
 }
 
 enum SubscriptionStatus {
@@ -428,4 +441,410 @@ enum TicketStatus {
   IN_PROGRESS
   RESOLVED
   CLOSED
+}
+
+// ============================================================
+// Multi-Tenant ATS SaaS Models
+// ============================================================
+
+model Organization {
+  id               String           @id @default(cuid())
+  name             String
+  slug             String           @unique
+  logo             String?
+  website          String?
+  billingEmail     String?
+  plan             SubscriptionPlan @default(FREE)
+  stripeCustomerId String?          @unique
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  members        OrganizationMember[]
+  invitations    Invitation[]
+  jobs           Job[]
+  candidates     Candidate[]
+  applications   Application[]
+  pipelineStages PipelineStage[]
+  candidateNotes CandidateNote[]
+  candidateTags  CandidateTag[]
+  notifications  Notification[]
+  activityLogs   ActivityLog[]
+
+  @@map("organizations")
+}
+
+model OrganizationMember {
+  id             String        @id @default(cuid())
+  organizationId String
+  userId         String
+  role           OrgMemberRole @default(RECRUITER)
+  status         MemberStatus  @default(ACTIVE)
+  joinedAt       DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+  @@index([organizationId])
+  @@index([userId])
+  @@map("organization_members")
+}
+
+model Invitation {
+  id             String           @id @default(cuid())
+  organizationId String
+  email          String
+  role           OrgMemberRole    @default(RECRUITER)
+  token          String           @unique
+  inviterId      String
+  expiresAt      DateTime
+  status         InvitationStatus @default(PENDING)
+  createdAt      DateTime         @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  inviter      User         @relation("InvitedBy", fields: [inviterId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([email])
+  @@map("invitations")
+}
+
+model Job {
+  id                  String         @id @default(cuid())
+  organizationId      String
+  title               String
+  department          String?
+  location            String?
+  employmentType      EmploymentType @default(FULL_TIME)
+  workplaceType       WorkplaceType  @default(HYBRID)
+  experienceLevel     String?
+  salaryMin           Int?
+  salaryMax           Int?
+  salaryCurrency      String         @default("USD")
+  description         String         @db.Text
+  requirements        String?        @db.Text
+  requiredSkills      String[]       @default([])
+  preferredSkills     String[]       @default([])
+  applicationDeadline DateTime?
+  status              JobStatus      @default(DRAFT)
+  createdById         String
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+
+  organization   Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  createdBy      User            @relation("JobCreator", fields: [createdById], references: [id], onDelete: Cascade)
+  applications   Application[]
+  pipelineStages PipelineStage[]
+
+  @@index([organizationId, status])
+  @@index([organizationId, department])
+  @@map("jobs")
+}
+
+model Candidate {
+  id             String          @id @default(cuid())
+  organizationId String
+  firstName      String
+  lastName       String
+  email          String
+  phone          String?
+  location       String?
+  headline       String?
+  summary        String?         @db.Text
+  linkedinUrl    String?
+  githubUrl      String?
+  portfolioUrl   String?
+  resumeFileUrl  String?
+  resumeFileName String?
+  rawResumeText  String?         @db.Text
+  parsedData     Json?
+  source         CandidateSource @default(DIRECT_UPLOAD)
+  createdById    String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  organization Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  applications Application[]
+  notes        CandidateNote[]
+  tags         CandidateTag[]
+
+  @@unique([organizationId, email])
+  @@index([organizationId, email])
+  @@index([organizationId, lastName])
+  @@map("candidates")
+}
+
+model Application {
+  id              String           @id @default(cuid())
+  organizationId  String
+  jobId           String
+  candidateId     String
+  stage           ApplicationStage @default(APPLIED)
+  matchScore      Float?
+  matchBreakdown  Json?
+  aiSummary       String?          @db.Text
+  rejectionReason String?
+  coverLetter     String?          @db.Text
+  customAnswers   Json?
+  trackingToken   String?
+  appliedAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  organization   Organization              @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  job            Job                       @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  candidate      Candidate                 @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  stageHistories ApplicationStageHistory[]
+  interviews     Interview[]
+
+  @@unique([jobId, candidateId])
+  @@index([organizationId, jobId, stage])
+  @@index([candidateId])
+  @@index([trackingToken])
+  @@map("applications")
+}
+
+model ApplicationStageHistory {
+  id            String           @id @default(cuid())
+  applicationId String
+  fromStage     ApplicationStage
+  toStage       ApplicationStage
+  movedById     String
+  notes         String?
+  createdAt     DateTime         @default(now())
+
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  movedBy     User        @relation("StageMover", fields: [movedById], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+  @@map("application_stage_histories")
+}
+
+model PipelineStage {
+  id             String           @id @default(cuid())
+  organizationId String
+  jobId          String?
+  name           String
+  stageKey       ApplicationStage
+  orderIndex     Int
+  color          String?
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  job          Job?         @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, jobId, orderIndex])
+  @@map("pipeline_stages")
+}
+
+model Interview {
+  id              String          @id @default(cuid())
+  organizationId  String
+  applicationId   String
+  title           String
+  interviewType   InterviewType   @default(TECHNICAL)
+  scheduledAt     DateTime
+  durationMinutes Int             @default(45)
+  meetingUrl      String?
+  location        String?
+  status          InterviewStatus @default(SCHEDULED)
+  instructions    String?         @db.Text
+  createdById     String
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  application  Application         @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  interviewers Interviewer[]
+  feedbacks    InterviewFeedback[]
+
+  @@index([organizationId, scheduledAt])
+  @@index([applicationId])
+  @@map("interviews")
+}
+
+model Interviewer {
+  id          String @id @default(cuid())
+  interviewId String
+  userId      String
+
+  interview Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([interviewId, userId])
+  @@map("interviewers")
+}
+
+model InterviewFeedback {
+  id                    String              @id @default(cuid())
+  interviewId           String
+  interviewerId         String
+  overallRecommendation RecommendationScore
+  rating                Int
+  technicalScore        Int?
+  communicationScore    Int?
+  cultureFitScore       Int?
+  strengths             String?             @db.Text
+  weaknesses            String?             @db.Text
+  notes                 String?             @db.Text
+  submittedAt           DateTime            @default(now())
+
+  interview   Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  interviewer User      @relation("InterviewerUser", fields: [interviewerId], references: [id], onDelete: Cascade)
+
+  @@unique([interviewId, interviewerId])
+  @@map("interview_feedbacks")
+}
+
+model CandidateNote {
+  id             String   @id @default(cuid())
+  organizationId String
+  candidateId    String
+  authorId       String
+  content        String   @db.Text
+  isInternal     Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  candidate    Candidate    @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  author       User         @relation("NoteAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, candidateId])
+  @@map("candidate_notes")
+}
+
+model CandidateTag {
+  id             String  @id @default(cuid())
+  organizationId String
+  candidateId    String
+  name           String
+  color          String?
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  candidate    Candidate    @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+
+  @@unique([candidateId, name])
+  @@index([organizationId])
+  @@map("candidate_tags")
+}
+
+model ActivityLog {
+  id             String   @id @default(cuid())
+  organizationId String
+  userId         String
+  action         String
+  entityType     String
+  entityId       String
+  metadata       Json?
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User         @relation("ActivityUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, createdAt])
+  @@map("activity_logs")
+}
+
+model Notification {
+  id             String   @id @default(cuid())
+  organizationId String
+  userId         String
+  title          String
+  message        String
+  link           String?
+  read           Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User         @relation("NotificationUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read])
+  @@map("notifications")
+}
+
+// ============================================================
+// Multi-Tenant Enums
+// ============================================================
+
+enum OrgMemberRole {
+  ORG_OWNER
+  ADMIN
+  RECRUITER
+  HIRING_MANAGER
+  INTERVIEWER
+}
+
+enum MemberStatus {
+  ACTIVE
+  INVITED
+  SUSPENDED
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+  REVOKED
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+}
+
+enum WorkplaceType {
+  ON_SITE
+  HYBRID
+  REMOTE
+}
+
+enum JobStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+  ARCHIVED
+}
+
+enum CandidateSource {
+  DIRECT_UPLOAD
+  CAREER_PAGE
+  RECRUITER_SOURCED
+  AGENCY_REFERRAL
+}
+
+enum ApplicationStage {
+  APPLIED
+  SCREENING
+  SHORTLISTED
+  ASSESSMENT
+  INTERVIEW
+  FINAL_INTERVIEW
+  OFFER
+  HIRED
+  REJECTED
+}
+
+enum InterviewType {
+  SCREENING
+  TECHNICAL
+  BEHAVIORAL
+  SYSTEM_DESIGN
+  CULTURE_FIT
+  FINAL
+}
+
+enum InterviewStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+  RESCHEDULED
+}
+
+enum RecommendationScore {
+  STRONG_YES
+  YES
+  NEUTRAL
+  NO
+  STRONG_NO
 }

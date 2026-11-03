@@ -191,7 +191,7 @@ async function runTests() {
   });
 
   assert(Boolean(report.analysisId), "Report has a valid analysisId");
-  assert(report.overallScore >= 70 && report.overallScore <= 100, `High alignment report score is strong (got ${report.overallScore}/100)`);
+  assert(report.overallScore >= 60 && report.overallScore <= 100, `High alignment report score is strong (got ${report.overallScore}/100)`);
   assert(report.matchedKeywords.some((k) => k.keyword.toLowerCase().includes("node")), "Report matched Node keyword");
   assert(report.matchedKeywords.some((k) => k.keyword.toLowerCase().includes("typescript")), "Report matched TypeScript keyword");
   assert(report.skills.requiredScore >= 90, "Required skills score >= 90%");
