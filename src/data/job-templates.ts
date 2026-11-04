@@ -6297,6 +6297,652 @@ export const JOB_TEMPLATES: JobTemplate[] = [
       "SQL"
     ],
     "description": "### About the Role\nWe are seeking a **Staff Technical Product Manager** to join our team in Product. In this role, you will be responsible for executing key initiatives and ensuring high-quality outcomes across Product.\n\n### Key Responsibilities\n- Architect, build, and maintain core systems using API Design and System Architecture.\n- Collaborate with engineering, product, and operations peers on technical specifications.\n- Drive continuous improvement in code quality, system reliability, and performance.\n- Troubleshoot critical issues and implement proactive testing and monitoring.\n\n### Qualifications & Requirements\n- Professional experience as a Staff Technical Product Manager (Lead).\n- Hands-on proficiency with required skills: API Design, System Architecture, PRDs, Developer Experience.\n- Strong communication, problem-solving, and collaboration capabilities.\n\n### Preferred Qualifications\n- Experience with: Microservices, Postman, SQL.\n- Understanding of modern cloud and agile deployment methodologies.\n\n### What We Offer\n- Competitive compensation, health benefits, and flexible PTO.\n- Collaborative, remote-friendly team culture with dedicated growth budgets."
+  },
+
+  // ============================================================
+  // TECHNOLOGY-SPECIFIC MULTI-LEVEL ROLES (all career stages)
+  // Python · Node.js · TypeScript · NestJS · GraphQL
+  // Rust · PHP/Laravel · Swift · Kotlin · Flutter · Svelte
+  // Django · FastAPI · Golang variants · React · Vue · Angular
+  // Next.js · Java · C# · React Native · and more
+  // ============================================================
+
+  // ─── Python Developer (Web / API focus) ─────────────────────
+  {
+    "id": "junior-python-developer",
+    "title": "Junior Python Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["Python", "REST APIs", "Git", "SQL", "Flask or Django basics"],
+    "preferredSkills": ["FastAPI", "PostgreSQL", "Docker", "Unit Testing"],
+    "description": "### About the Role\nWe are looking for a **Junior Python Developer** eager to build real-world backend services and APIs. You will work alongside senior engineers to develop, test, and ship Python-powered features.\n\n### Key Responsibilities\n- Write clean, well-tested Python code for backend services and REST APIs.\n- Implement database models and queries using SQLAlchemy or Django ORM.\n- Participate in code reviews and iterative sprint delivery.\n- Fix bugs, write unit tests, and maintain existing services.\n\n### Qualifications & Requirements\n- 0-2 years Python development experience or strong portfolio projects.\n- Working knowledge of Python 3.x, Flask, Django, or FastAPI.\n- Familiarity with SQL databases (PostgreSQL or MySQL).\n\n### Preferred Qualifications\n- Experience with Docker and containerized development environments.\n- Exposure to test-driven development (TDD) with Pytest.\n\n### What We Offer\n- Competitive salary, remote-friendly culture, and mentorship program."
+  },
+  {
+    "id": "mid-python-developer",
+    "title": "Python Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["Python", "Django or FastAPI", "REST APIs", "PostgreSQL", "Git", "Docker"],
+    "preferredSkills": ["Celery", "Redis", "AWS Lambda", "OpenAPI", "Pytest"],
+    "description": "### About the Role\nWe are hiring a **Python Developer** to design and build scalable backend APIs and data-driven services. You will contribute to architectural decisions and lead feature delivery end-to-end.\n\n### Key Responsibilities\n- Design and implement RESTful or GraphQL APIs using Django REST Framework or FastAPI.\n- Optimize database queries, write migrations, and maintain data integrity.\n- Integrate asynchronous task queues (Celery + Redis) for background processing.\n- Contribute to CI/CD pipelines, write integration tests, and maintain documentation.\n\n### Qualifications & Requirements\n- 2-4 years professional Python experience.\n- Strong proficiency with Django or FastAPI and PostgreSQL.\n- Experience with containerization (Docker, Docker Compose).\n\n### Preferred Qualifications\n- Experience with AWS services (S3, Lambda, RDS) or GCP equivalents.\n- Knowledge of OpenAPI spec and auto-documentation tools.\n\n### What We Offer\n- Equity, flexible PTO, full remote option, and generous health benefits."
+  },
+  {
+    "id": "senior-python-developer-web",
+    "title": "Senior Python Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Senior",
+    "requiredSkills": ["Python", "Django", "FastAPI", "PostgreSQL", "Redis", "Docker", "AWS or GCP"],
+    "preferredSkills": ["Kubernetes", "Kafka", "GraphQL", "Microservices", "OpenTelemetry"],
+    "description": "### About the Role\nWe seek a **Senior Python Developer** to lead backend architecture, mentor junior engineers, and drive technical strategy across our Python microservices ecosystem.\n\n### Key Responsibilities\n- Architect and build high-performance Python services using FastAPI or Django.\n- Lead performance profiling, caching strategies, and database optimization.\n- Define coding standards, conduct architecture reviews, and guide technical roadmap.\n- Integrate observability (logging, metrics, tracing) across services.\n\n### Qualifications & Requirements\n- 5+ years Python backend engineering.\n- Expert-level knowledge of Django REST Framework and/or FastAPI.\n- Proven experience with microservices, Docker, and cloud deployment.\n\n### Preferred Qualifications\n- Experience with event-driven architecture (Kafka, RabbitMQ).\n- Kubernetes orchestration and cloud-native patterns.\n\n### What We Offer\n- Senior compensation band, remote-first, annual learning stipend."
+  },
+  {
+    "id": "lead-python-developer",
+    "title": "Lead Python Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Lead",
+    "requiredSkills": ["Python", "FastAPI", "Django", "Microservices", "Kubernetes", "PostgreSQL", "Team Leadership"],
+    "preferredSkills": ["Kafka", "OpenTelemetry", "gRPC", "Terraform", "SOC 2 compliance"],
+    "description": "### About the Role\nAs **Lead Python Developer**, you will own the technical direction of our Python backend platform, lead a team of developers, and collaborate directly with engineering leadership and product.\n\n### Key Responsibilities\n- Own the architecture and delivery of Python-based backend systems.\n- Lead and mentor a team of 3-6 Python developers.\n- Drive technical decisions on framework selection, API design, and scalability.\n- Collaborate with DevOps on deployment strategies and infrastructure.\n\n### Qualifications & Requirements\n- 7+ years Python development with 2+ years in a tech lead role.\n- Strong microservices architecture and system design skills.\n- Experience leading agile teams and conducting technical interviews.\n\n### What We Offer\n- Leadership track, competitive total compensation, stock options."
+  },
+  {
+    "id": "principal-python-developer",
+    "title": "Principal Python Engineer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Executive",
+    "requiredSkills": ["Python", "Distributed Systems", "API Design", "System Architecture", "Cloud Platforms", "Technical Leadership"],
+    "preferredSkills": ["Machine Learning integration", "gRPC", "Platform Engineering", "Open Source contributions"],
+    "description": "### About the Role\nThe **Principal Python Engineer** is a highly senior IC role responsible for defining Python platform standards, spearheading critical infrastructure projects, and influencing engineering culture across the organization.\n\n### Key Responsibilities\n- Define Python engineering standards, tooling, and best practices across all teams.\n- Lead design and implementation of mission-critical distributed backend systems.\n- Partner with VPs and CTOs on multi-year technical roadmap decisions.\n- Mentor staff engineers and drive knowledge-sharing programs.\n\n### Qualifications & Requirements\n- 10+ years professional Python engineering.\n- Deep expertise in distributed systems, API design, and cloud platforms.\n- Track record of shipping large-scale, production Python systems.\n\n### What We Offer\n- Principal-level compensation, broad organizational impact, executive visibility."
+  },
+
+  // ─── Node.js Developer (pure backend focus) ──────────────────
+  {
+    "id": "junior-node-js-developer",
+    "title": "Junior Node.js Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["Node.js", "JavaScript", "Express.js", "REST APIs", "Git", "MongoDB or PostgreSQL"],
+    "preferredSkills": ["TypeScript", "Docker", "JWT", "Postman", "npm"],
+    "description": "### About the Role\nWe are hiring a **Junior Node.js Developer** to help build robust, scalable backend APIs. You'll learn alongside experienced engineers in a collaborative environment.\n\n### Key Responsibilities\n- Develop and maintain RESTful APIs using Node.js and Express.js.\n- Write database queries using MongoDB or PostgreSQL.\n- Build middleware for authentication (JWT), rate limiting, and error handling.\n- Write unit tests and participate in peer code reviews.\n\n### Qualifications & Requirements\n- 0-2 years Node.js or JavaScript backend experience.\n- Proficiency with Express.js and RESTful API patterns.\n- Basic knowledge of SQL or NoSQL databases.\n\n### What We Offer\n- Mentorship from senior Node.js engineers, modern tech stack."
+  },
+  {
+    "id": "mid-node-js-developer",
+    "title": "Node.js Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["Node.js", "TypeScript", "Express.js or Fastify", "PostgreSQL", "Redis", "REST APIs", "Docker"],
+    "preferredSkills": ["NestJS", "RabbitMQ", "AWS", "OpenAPI", "Jest"],
+    "description": "### About the Role\nWe seek a **Node.js Developer** with hands-on backend engineering experience. You will design APIs, optimize performance, and contribute to technical architecture decisions.\n\n### Key Responsibilities\n- Build and optimize RESTful and event-driven APIs using Node.js with TypeScript.\n- Implement caching strategies using Redis and design efficient PostgreSQL schemas.\n- Integrate with third-party APIs, payment gateways, and messaging queues.\n- Write integration and unit tests using Jest or Mocha.\n\n### Qualifications & Requirements\n- 2-4 years professional Node.js backend experience.\n- Proficiency in TypeScript, Express.js or Fastify, and PostgreSQL.\n- Experience with Docker-based development workflows.\n\n### What We Offer\n- Flexible remote work, competitive compensation, annual conference budget."
+  },
+  {
+    "id": "senior-node-js-developer",
+    "title": "Senior Node.js Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Senior",
+    "requiredSkills": ["Node.js", "TypeScript", "NestJS or Express.js", "PostgreSQL", "Redis", "Kafka or RabbitMQ", "Docker", "AWS"],
+    "preferredSkills": ["Kubernetes", "GraphQL", "gRPC", "OpenTelemetry", "Terraform"],
+    "description": "### About the Role\nAs a **Senior Node.js Developer**, you will lead the design and implementation of high-performance backend systems, establish best practices, and mentor junior developers.\n\n### Key Responsibilities\n- Design scalable microservices and event-driven systems using Node.js and TypeScript.\n- Establish API design standards, error handling strategies, and observability practices.\n- Lead performance profiling and optimization of Node.js applications under load.\n- Mentor developers, conduct code reviews, and drive technical excellence.\n\n### Qualifications & Requirements\n- 5+ years Node.js backend development.\n- Expert TypeScript skills and deep knowledge of async patterns, event loop.\n- Production experience with message queues (Kafka/RabbitMQ) and cloud (AWS/GCP).\n\n### What We Offer\n- Senior pay band, remote-first, stock options, unlimited PTO."
+  },
+  {
+    "id": "lead-node-js-developer",
+    "title": "Lead Node.js Engineer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Lead",
+    "requiredSkills": ["Node.js", "TypeScript", "NestJS", "Microservices", "Kubernetes", "PostgreSQL", "Team Leadership"],
+    "preferredSkills": ["Service Mesh", "OpenTelemetry", "DataDog", "Terraform", "Platform Engineering"],
+    "description": "### About the Role\nThe **Lead Node.js Engineer** will own the backend platform, lead a team of engineers, and drive architectural decisions that power our core product.\n\n### Key Responsibilities\n- Lead architecture and delivery of Node.js-based microservices at scale.\n- Define coding standards, design patterns, and API contracts for the team.\n- Manage and mentor a team of 3-5 Node.js developers.\n- Collaborate with product and DevOps on cross-functional technical initiatives.\n\n### Qualifications & Requirements\n- 7+ years Node.js development with 2+ years tech lead experience.\n- Strong systems design and microservices architecture skills.\n- Experience with Kubernetes and cloud-native deployment.\n\n### What We Offer\n- Leadership compensation, equity package, executive stakeholder access."
+  },
+  {
+    "id": "principal-node-js-developer",
+    "title": "Principal Node.js Engineer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Executive",
+    "requiredSkills": ["Node.js", "TypeScript", "Distributed Systems", "Platform Architecture", "API Design", "Technical Leadership"],
+    "preferredSkills": ["Open Source contributions", "Developer Platform design", "Runtime optimization", "Security architecture"],
+    "description": "### About the Role\nThe **Principal Node.js Engineer** is the highest individual contributor role for Node.js backend, responsible for platform-wide architecture and cross-team standards.\n\n### Key Responsibilities\n- Define the Node.js runtime, framework, and tooling strategy across the organization.\n- Design next-generation distributed backend systems and lead proof-of-concept projects.\n- Advise engineering leadership on build vs. buy decisions, vendor selection, and roadmap.\n- Establish technical excellence culture through RFCs, ADRs, and design reviews.\n\n### Qualifications & Requirements\n- 12+ years backend engineering, 7+ years Node.js specialization.\n- Published open-source libraries or technical articles preferred.\n- Demonstrated track record of company-wide architectural impact.\n\n### What We Offer\n- Principal-level TC, broad autonomy, direct access to CTO."
+  },
+
+  // ─── TypeScript Developer ────────────────────────────────────
+  {
+    "id": "junior-typescript-developer",
+    "title": "Junior TypeScript Developer",
+    "department": "Engineering",
+    "category": "Full Stack",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["TypeScript", "JavaScript", "Node.js or React", "Git", "REST APIs"],
+    "preferredSkills": ["ESLint", "Prettier", "Zod", "React", "Express.js"],
+    "description": "### About the Role\nWe seek a **Junior TypeScript Developer** enthusiastic about type-safe, modern JavaScript development. You will help build frontend components or backend APIs using TypeScript in a full stack environment.\n\n### Key Responsibilities\n- Write type-safe TypeScript code for frontend (React) or backend (Node.js) features.\n- Fix TypeScript compilation errors, improve type coverage, and enforce strict mode.\n- Collaborate on code reviews focusing on typing and best practices.\n- Write unit tests with Jest and maintain documentation.\n\n### Qualifications & Requirements\n- 0-2 years TypeScript/JavaScript experience.\n- Working understanding of TypeScript generics, interfaces, and utility types.\n- Experience with either React or Node.js.\n\n### What We Offer\n- Mentorship, modern tooling, remote-friendly culture."
+  },
+  {
+    "id": "mid-typescript-developer",
+    "title": "TypeScript Developer",
+    "department": "Engineering",
+    "category": "Full Stack",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["TypeScript", "React", "Node.js", "REST APIs", "PostgreSQL", "Git", "Docker"],
+    "preferredSkills": ["Zod", "tRPC", "GraphQL", "Next.js", "Jest"],
+    "description": "### About the Role\nWe are hiring a **TypeScript Developer** to build robust, type-safe applications across our full stack. You will drive type safety standards and contribute to both frontend and backend TypeScript codebases.\n\n### Key Responsibilities\n- Develop end-to-end TypeScript features across React frontend and Node.js backend.\n- Enforce strict TypeScript configuration and design reusable typed utilities.\n- Build and consume type-safe APIs using tRPC, OpenAPI, or GraphQL with codegen.\n- Write comprehensive tests with Jest and maintain CI pipelines.\n\n### Qualifications & Requirements\n- 2-4 years professional TypeScript experience.\n- Strong knowledge of TypeScript type system (generics, conditional types, mapped types).\n- Experience with both frontend (React/Next.js) and backend (Node.js/NestJS).\n\n### What We Offer\n- Competitive salary, remote work, TypeScript-first codebase."
+  },
+  {
+    "id": "senior-typescript-developer",
+    "title": "Senior TypeScript Developer",
+    "department": "Engineering",
+    "category": "Full Stack",
+    "experienceLevel": "Senior",
+    "requiredSkills": ["TypeScript", "React", "Node.js", "NestJS or Next.js", "PostgreSQL", "Docker", "GraphQL or tRPC"],
+    "preferredSkills": ["Zod", "Prisma", "OpenAPI codegen", "Monorepo", "Turborepo"],
+    "description": "### About the Role\nAs a **Senior TypeScript Developer**, you will own TypeScript architecture across frontend and backend, establish type standards, and mentor engineers on advanced typing patterns.\n\n### Key Responsibilities\n- Lead TypeScript architectural decisions across frontend and backend systems.\n- Design shared type libraries, API contracts, and codegen workflows.\n- Optimize TypeScript build performance, enforce strict compiler settings.\n- Mentor engineers, conduct type-focused code reviews, and document advanced patterns.\n\n### Qualifications & Requirements\n- 5+ years TypeScript development.\n- Expert knowledge of advanced TypeScript patterns and performance optimization.\n- Experience with monorepo setups (Turborepo, Nx) and shared package management.\n\n### What We Offer\n- Senior band pay, TypeScript-first culture, remote-first with async collaboration."
+  },
+
+  // ─── NestJS Developer ────────────────────────────────────────
+  {
+    "id": "junior-nestjs-developer",
+    "title": "Junior NestJS Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["NestJS", "TypeScript", "Node.js", "PostgreSQL", "REST APIs", "Git"],
+    "preferredSkills": ["Prisma", "Docker", "JWT auth", "Jest"],
+    "description": "### About the Role\nWe are looking for a **Junior NestJS Developer** to join our backend team and help build enterprise-grade REST APIs using the NestJS framework.\n\n### Key Responsibilities\n- Build RESTful API controllers, services, and modules using NestJS and TypeScript.\n- Implement database models and queries using TypeORM or Prisma.\n- Handle authentication with JWT and Passport.js guards.\n- Write unit and e2e tests using Jest and Supertest.\n\n### Qualifications & Requirements\n- 0-2 years Node.js or NestJS experience.\n- Understanding of NestJS dependency injection and module system.\n- Familiarity with TypeScript and PostgreSQL.\n\n### What We Offer\n- Structured onboarding, NestJS-first codebase, remote-friendly."
+  },
+  {
+    "id": "mid-nestjs-developer",
+    "title": "NestJS Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["NestJS", "TypeScript", "PostgreSQL", "Prisma or TypeORM", "Docker", "Redis", "REST APIs"],
+    "preferredSkills": ["GraphQL", "Bull/BullMQ", "Kafka", "OpenAPI", "CQRS"],
+    "description": "### About the Role\nWe're hiring a **NestJS Developer** to design and implement scalable backend APIs and microservices for our SaaS platform.\n\n### Key Responsibilities\n- Design NestJS modules, providers, and interceptors for scalable API delivery.\n- Implement background job processing using Bull/BullMQ and Redis.\n- Build GraphQL resolvers or OpenAPI-documented REST endpoints.\n- Integrate with third-party services (Stripe, SendGrid, AWS S3).\n\n### Qualifications & Requirements\n- 2-4 years NestJS or Node.js backend development.\n- Strong TypeScript proficiency and understanding of SOLID principles.\n- Experience with PostgreSQL, Prisma/TypeORM, and Docker.\n\n### What We Offer\n- Competitive salary, flexible hours, modern NestJS enterprise codebase."
+  },
+  {
+    "id": "senior-nestjs-developer",
+    "title": "Senior NestJS Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Senior",
+    "requiredSkills": ["NestJS", "TypeScript", "PostgreSQL", "Microservices", "Kafka or RabbitMQ", "Redis", "Docker", "AWS"],
+    "preferredSkills": ["CQRS pattern", "Event Sourcing", "gRPC", "Kubernetes", "OpenTelemetry"],
+    "description": "### About the Role\nAs a **Senior NestJS Developer**, you will lead the backend architecture of our microservices platform, applying DDD and CQRS patterns with NestJS.\n\n### Key Responsibilities\n- Architect NestJS microservices using CQRS, Event Sourcing, and DDD patterns.\n- Design scalable API gateways, message consumers, and async workflows.\n- Optimize NestJS performance, database queries, and service communication.\n- Mentor junior developers and lead architectural decision discussions.\n\n### Qualifications & Requirements\n- 5+ years NestJS or Node.js backend experience.\n- Deep expertise in NestJS internals, decorators, and design patterns.\n- Production experience with Kafka/RabbitMQ and cloud deployments.\n\n### What We Offer\n- Senior-level pay, remote-first, mentorship culture."
+  },
+  {
+    "id": "lead-nestjs-developer",
+    "title": "Lead NestJS Engineer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Lead",
+    "requiredSkills": ["NestJS", "TypeScript", "Microservices", "Kubernetes", "PostgreSQL", "Team Leadership", "System Design"],
+    "preferredSkills": ["Platform Engineering", "Service Mesh", "DataDog", "Terraform"],
+    "description": "### About the Role\nThe **Lead NestJS Engineer** will own our Node.js/NestJS backend platform and lead a team of engineers building scalable enterprise APIs.\n\n### Key Responsibilities\n- Own the technical architecture and delivery roadmap for NestJS services.\n- Lead a team of 4-6 backend engineers.\n- Drive framework upgrade strategies, testing standards, and DevOps collaboration.\n- Design company-wide API standards, documentation, and consumer SDKs.\n\n### Qualifications & Requirements\n- 7+ years Node.js/NestJS development, 2+ years as tech lead.\n- Strong architecture skills: microservices, event-driven, API design.\n- Experience managing teams and stakeholder communication.\n\n### What We Offer\n- Lead-level compensation, equity, executive stakeholder access."
+  },
+
+  // ─── GraphQL Developer ───────────────────────────────────────
+  {
+    "id": "junior-graphql-developer",
+    "title": "Junior GraphQL Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["GraphQL", "Node.js", "TypeScript", "REST APIs", "Git"],
+    "preferredSkills": ["Apollo Server", "Prisma", "React", "TypeGraphQL"],
+    "description": "### About the Role\nWe are looking for a **Junior GraphQL Developer** to help build and maintain our GraphQL API layer, connecting frontend clients to backend services.\n\n### Key Responsibilities\n- Write GraphQL schemas, queries, mutations, and resolvers using Apollo Server.\n- Integrate GraphQL with PostgreSQL via Prisma or TypeORM.\n- Optimize N+1 queries using DataLoader batching.\n- Collaborate with frontend engineers on schema design and query optimization.\n\n### Qualifications & Requirements\n- 0-2 years GraphQL or REST API development.\n- Understanding of GraphQL schema definition language (SDL).\n- Familiarity with TypeScript and Node.js.\n\n### What We Offer\n- Mentorship, GraphQL-native codebase, remote-friendly environment."
+  },
+  {
+    "id": "mid-graphql-developer",
+    "title": "GraphQL Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["GraphQL", "Apollo Server", "TypeScript", "Node.js", "PostgreSQL", "DataLoader", "Docker"],
+    "preferredSkills": ["GraphQL Federation", "NestJS", "Subscriptions", "Redis", "Authorization directives"],
+    "description": "### About the Role\nWe are hiring a **GraphQL Developer** to own the design and evolution of our GraphQL API surface, ensuring performance and developer experience.\n\n### Key Responsibilities\n- Design and evolve the GraphQL schema with backwards compatibility.\n- Implement field-level authorization, caching, and subscription support.\n- Build DataLoader batchers to eliminate N+1 query patterns.\n- Write GraphQL integration tests and maintain API documentation.\n\n### Qualifications & Requirements\n- 2-4 years GraphQL API development experience.\n- Strong Apollo Server / TypeGraphQL knowledge.\n- Experience with PostgreSQL and efficient query design.\n\n### What We Offer\n- Competitive salary, schema-driven development culture, remote-first."
+  },
+  {
+    "id": "senior-graphql-developer",
+    "title": "Senior GraphQL Engineer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Senior",
+    "requiredSkills": ["GraphQL", "GraphQL Federation", "Apollo Federation", "TypeScript", "Node.js", "PostgreSQL", "Redis", "Docker"],
+    "preferredSkills": ["Supergraph design", "Schema stitching", "gRPC", "DataDog", "Persisted queries"],
+    "description": "### About the Role\nAs a **Senior GraphQL Engineer**, you will lead the design of our federated supergraph, enabling seamless data access across all microservices for internal and external clients.\n\n### Key Responsibilities\n- Design and operate an Apollo Federation supergraph spanning multiple subgraph services.\n- Define schema governance standards, deprecation policies, and versioning strategies.\n- Optimize GraphQL query planning, caching, and subscription scalability.\n- Mentor engineers on GraphQL best practices and resolver performance.\n\n### Qualifications & Requirements\n- 5+ years GraphQL engineering experience.\n- Production experience with GraphQL Federation v2 and Apollo Studio.\n- Strong understanding of distributed data fetching patterns.\n\n### What We Offer\n- Senior pay band, GraphQL federation expertise opportunities, remote-first."
+  },
+  {
+    "id": "lead-graphql-developer",
+    "title": "Lead GraphQL Engineer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Lead",
+    "requiredSkills": ["GraphQL", "GraphQL Federation", "Apollo Studio", "TypeScript", "Microservices", "Team Leadership", "Schema Design"],
+    "preferredSkills": ["Persisted queries", "Schema registry", "OpenTelemetry", "Platform Engineering"],
+    "description": "### About the Role\nThe **Lead GraphQL Engineer** will own our graph strategy, lead a cross-functional team, and ensure the supergraph is a first-class developer platform.\n\n### Key Responsibilities\n- Own the federated supergraph architecture and define the graph evolution roadmap.\n- Lead GraphQL platform engineering initiatives (schema registry, persisted queries, operation analytics).\n- Manage and mentor a team of GraphQL and backend engineers.\n- Collaborate with frontend, mobile, and external partner teams on API design.\n\n### Qualifications & Requirements\n- 7+ years API engineering, 4+ years GraphQL specialization.\n- Production Apollo Federation v2 supergraph experience.\n- Proven leadership in cross-functional API governance.\n\n### What We Offer\n- Lead-level compensation, broad product influence, equity."
+  },
+
+  // ─── Rust Developer ──────────────────────────────────────────
+  {
+    "id": "junior-rust-developer",
+    "title": "Junior Rust Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["Rust", "Cargo", "Git", "Systems Programming", "Linux"],
+    "preferredSkills": ["Actix-web", "Tokio", "SQL", "CLI tooling", "WASM"],
+    "description": "### About the Role\nWe are looking for a **Junior Rust Developer** passionate about systems programming and memory safety. You will contribute to our Rust-based backend services and tooling.\n\n### Key Responsibilities\n- Write safe, idiomatic Rust code following ownership and borrowing principles.\n- Implement async backend services using Tokio and Actix-web.\n- Fix bugs, write unit tests, and improve documentation.\n- Learn and apply Rust patterns: traits, lifetimes, and error handling with Result/thiserror.\n\n### Qualifications & Requirements\n- 0-2 years Rust development or strong systems programming background.\n- Understanding of Rust ownership model, borrowing, and lifetimes.\n- Familiarity with async Rust and the Tokio runtime.\n\n### What We Offer\n- Rust-first culture, mentorship, remote-friendly, competitive pay."
+  },
+  {
+    "id": "mid-rust-developer",
+    "title": "Rust Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["Rust", "Tokio", "Actix-web or Axum", "PostgreSQL", "Docker", "REST APIs", "Git"],
+    "preferredSkills": ["SQLx", "gRPC", "Redis", "WASM", "FFI"],
+    "description": "### About the Role\nWe are hiring a **Rust Developer** to build high-performance backend services, CLI tools, and infrastructure components using Rust.\n\n### Key Responsibilities\n- Design and implement async REST or gRPC services using Axum or Actix-web.\n- Write performant database interaction layers using SQLx or Diesel.\n- Build observability tooling, profilers, or infrastructure CLIs in Rust.\n- Review code for memory safety, correctness, and performance.\n\n### Qualifications & Requirements\n- 2-4 years professional Rust development.\n- Strong async Rust knowledge (Tokio, async/await, futures).\n- Experience with PostgreSQL and Docker deployment.\n\n### What We Offer\n- Competitive salary, Rust-native stack, remote-first environment."
+  },
+  {
+    "id": "senior-rust-developer",
+    "title": "Senior Rust Engineer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Senior",
+    "requiredSkills": ["Rust", "Tokio", "Axum or Actix-web", "gRPC", "PostgreSQL", "Redis", "Kubernetes", "Performance Optimization"],
+    "preferredSkills": ["WebAssembly", "eBPF", "Rust macros", "LLVM", "unsafe Rust"],
+    "description": "### About the Role\nAs a **Senior Rust Engineer**, you will lead the design and development of ultra-high-performance backend systems, contributing to our most critical infrastructure components.\n\n### Key Responsibilities\n- Design zero-copy, latency-sensitive services processing millions of events per second.\n- Lead performance profiling and optimization using Flamegraph, Criterion, and perf.\n- Establish Rust coding standards, macros, and shared crate architecture.\n- Mentor engineers on advanced Rust patterns, lifetimes, and unsafe code.\n\n### Qualifications & Requirements\n- 5+ years Rust development with production systems experience.\n- Expert Rust knowledge: unsafe, macros, async internals, FFI.\n- Experience with high-throughput distributed systems.\n\n### What We Offer\n- Senior-level TC, impact on mission-critical infrastructure, Rust-native culture."
+  },
+  {
+    "id": "lead-rust-developer",
+    "title": "Lead Rust Engineer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Lead",
+    "requiredSkills": ["Rust", "Distributed Systems", "Performance Engineering", "gRPC", "Team Leadership", "System Architecture"],
+    "preferredSkills": ["eBPF", "WASM", "Formal verification", "Rust async runtime internals", "Open Source leadership"],
+    "description": "### About the Role\nThe **Lead Rust Engineer** will define our Rust engineering strategy, lead the systems team, and drive adoption of Rust across performance-critical components.\n\n### Key Responsibilities\n- Own the Rust platform architecture and define the multi-year technical roadmap.\n- Lead a team of Rust engineers building core infrastructure.\n- Drive Rust adoption strategy across the organization, including training programs.\n- Represent engineering in architectural decision reviews and cross-team collaboration.\n\n### Qualifications & Requirements\n- 8+ years systems programming, 4+ years Rust specialization.\n- Track record of building production-grade high-performance Rust systems.\n- Strong leadership and communication skills for cross-functional alignment.\n\n### What We Offer\n- Lead-level compensation, broad engineering impact, equity package."
+  },
+
+  // ─── PHP / Laravel Developer ─────────────────────────────────
+  {
+    "id": "junior-php-developer",
+    "title": "Junior PHP Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["PHP", "Laravel", "MySQL", "HTML", "CSS", "JavaScript", "Git"],
+    "preferredSkills": ["Blade templating", "Eloquent ORM", "REST APIs", "Composer", "Postman"],
+    "description": "### About the Role\nWe are looking for a **Junior PHP Developer** to help build and maintain Laravel-based web applications and APIs.\n\n### Key Responsibilities\n- Develop PHP/Laravel features including routes, controllers, models, and Blade views.\n- Write Eloquent ORM queries and manage database migrations.\n- Integrate RESTful APIs with frontend JavaScript.\n- Fix bugs, write feature tests, and participate in code reviews.\n\n### Qualifications & Requirements\n- 0-2 years PHP/Laravel development experience.\n- Working knowledge of Laravel MVC pattern and Eloquent ORM.\n- Familiarity with MySQL and Git.\n\n### What We Offer\n- Mentorship, Laravel-first codebase, flexible working hours."
+  },
+  {
+    "id": "mid-php-developer",
+    "title": "PHP Laravel Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["PHP", "Laravel", "MySQL or PostgreSQL", "Redis", "REST APIs", "Docker", "Git"],
+    "preferredSkills": ["Laravel Queues", "Livewire", "Inertia.js", "PHPUnit", "AWS S3"],
+    "description": "### About the Role\nWe are hiring a **PHP Laravel Developer** to design and implement backend features, APIs, and integrations for our web platform.\n\n### Key Responsibilities\n- Design scalable Laravel application architecture with clean separation of concerns.\n- Implement background job processing with Laravel Queues and Redis.\n- Build RESTful APIs and integrate with third-party payment, email, and storage services.\n- Write comprehensive PHPUnit tests and maintain CI/CD pipelines.\n\n### Qualifications & Requirements\n- 2-4 years professional Laravel/PHP development.\n- Strong Eloquent ORM and query builder knowledge.\n- Experience with Docker, Redis, and cloud deployments.\n\n### What We Offer\n- Competitive salary, Laravel ecosystem, remote-friendly culture."
+  },
+  {
+    "id": "senior-php-laravel-developer",
+    "title": "Senior PHP / Laravel Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Senior",
+    "requiredSkills": ["PHP", "Laravel", "PostgreSQL", "Redis", "Microservices", "Docker", "REST APIs", "PHPUnit"],
+    "preferredSkills": ["Laravel Octane", "Horizon", "Telescope", "Kubernetes", "Event Sourcing"],
+    "description": "### About the Role\nAs a **Senior PHP / Laravel Developer**, you will lead backend architecture, mentor engineers, and drive PHP platform modernization across our SaaS product.\n\n### Key Responsibilities\n- Architect modular, domain-driven Laravel applications at scale.\n- Optimize PHP performance using Laravel Octane, caching, and query optimization.\n- Lead API design, database schema evolution, and event-driven architecture.\n- Mentor junior/mid developers and conduct architecture reviews.\n\n### Qualifications & Requirements\n- 5+ years Laravel/PHP production experience.\n- Expert knowledge of PHP 8.x features, Laravel internals, and design patterns.\n- Experience with high-traffic SaaS applications and optimization strategies.\n\n### What We Offer\n- Senior pay band, platform modernization leadership, remote-first."
+  },
+  {
+    "id": "lead-php-developer",
+    "title": "Lead PHP Engineer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Lead",
+    "requiredSkills": ["PHP", "Laravel", "Microservices", "Kubernetes", "PostgreSQL", "Team Leadership", "API Design"],
+    "preferredSkills": ["Laravel Octane", "PHP-FPM tuning", "Event Sourcing", "CQRS", "DataDog"],
+    "description": "### About the Role\nThe **Lead PHP Engineer** will own the PHP platform roadmap, lead the backend team, and drive technical direction across our Laravel-based architecture.\n\n### Key Responsibilities\n- Own technical architecture decisions for the Laravel/PHP backend platform.\n- Lead a team of 4-6 PHP/Laravel developers.\n- Drive performance optimization, tech debt reduction, and framework upgrades.\n- Align engineering decisions with product and business roadmap.\n\n### Qualifications & Requirements\n- 8+ years PHP development, 2+ years as tech lead.\n- Deep Laravel internals knowledge and software architecture skills.\n- Experience managing engineering teams and technical roadmaps.\n\n### What We Offer\n- Lead-level compensation, platform ownership, equity options."
+  },
+
+  // ─── Swift / iOS Developer ───────────────────────────────────
+  {
+    "id": "junior-swift-developer",
+    "title": "Junior iOS Developer (Swift)",
+    "department": "Mobile",
+    "category": "iOS",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["Swift", "UIKit", "SwiftUI", "Xcode", "Git", "REST APIs"],
+    "preferredSkills": ["Core Data", "CocoaPods", "SPM", "MVVM pattern", "TestFlight"],
+    "description": "### About the Role\nWe are looking for a **Junior iOS Developer** passionate about building beautiful, high-performance iOS apps using Swift and SwiftUI.\n\n### Key Responsibilities\n- Develop iOS features using Swift with UIKit and SwiftUI.\n- Integrate REST APIs using URLSession or Alamofire.\n- Implement MVVM or MVC architecture patterns.\n- Write unit tests with XCTest and participate in TestFlight beta cycles.\n\n### Qualifications & Requirements\n- 0-2 years iOS/Swift development or strong App Store portfolio.\n- Proficiency in Swift 5.x, SwiftUI, and UIKit.\n- Understanding of Auto Layout and responsive design for iOS.\n\n### What We Offer\n- Mentorship from senior iOS engineers, modern Swift codebase, remote-friendly."
+  },
+  {
+    "id": "mid-swift-developer",
+    "title": "iOS Developer (Swift & SwiftUI)",
+    "department": "Mobile",
+    "category": "iOS",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["Swift", "SwiftUI", "UIKit", "Combine", "MVVM", "Xcode", "REST APIs", "Git"],
+    "preferredSkills": ["Core Data", "Swift Concurrency", "WidgetKit", "SPM", "Firebase"],
+    "description": "### About the Role\nWe are hiring an **iOS Developer** to build and maintain our Swift-based iOS application, delivering a best-in-class user experience to millions of users.\n\n### Key Responsibilities\n- Design and implement native iOS features using SwiftUI and Combine.\n- Manage app state, local persistence, and background processing.\n- Integrate push notifications, analytics, and third-party SDKs.\n- Optimize app performance, memory usage, and battery efficiency.\n\n### Qualifications & Requirements\n- 2-4 years professional iOS/Swift development.\n- Strong SwiftUI, Combine, and Swift Concurrency (async/await) skills.\n- Experience with App Store submission and TestFlight processes.\n\n### What We Offer\n- Competitive salary, app used by millions, remote option."
+  },
+  {
+    "id": "senior-swift-developer",
+    "title": "Senior iOS Engineer (Swift & SwiftUI)",
+    "department": "Mobile",
+    "category": "iOS",
+    "experienceLevel": "Senior",
+    "requiredSkills": ["Swift", "SwiftUI", "UIKit", "Combine", "Swift Concurrency", "MVVM", "Core Data", "Instruments profiling"],
+    "preferredSkills": ["SwiftData", "WidgetKit", "App Clips", "StoreKit", "On-device ML (Core ML)"],
+    "description": "### About the Role\nAs a **Senior iOS Engineer**, you will lead iOS feature development, establish architecture patterns, and mentor the mobile team to ship high-quality Swift apps.\n\n### Key Responsibilities\n- Architect modular, testable iOS apps using MVVM/TCA or Composable Architecture.\n- Lead performance optimization using Instruments, memory profiling, and Core Animation.\n- Define mobile coding standards and review architecture decisions.\n- Collaborate with design and backend on cross-functional features.\n\n### Qualifications & Requirements\n- 5+ years native iOS development with Swift.\n- Expert SwiftUI, Combine, and Swift Concurrency knowledge.\n- Experience shipping complex apps to 1M+ users.\n\n### What We Offer\n- Senior-level TC, mobile platform ownership, remote-friendly."
+  },
+
+  // ─── Kotlin / Android Developer ─────────────────────────────
+  {
+    "id": "junior-kotlin-developer",
+    "title": "Junior Android Developer (Kotlin)",
+    "department": "Mobile",
+    "category": "Android",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["Kotlin", "Android SDK", "Jetpack Compose or XML layouts", "Git", "REST APIs"],
+    "preferredSkills": ["ViewModel", "LiveData", "Retrofit", "Room", "Coroutines"],
+    "description": "### About the Role\nWe are looking for a **Junior Android Developer** eager to build native Android apps using Kotlin and Jetpack libraries.\n\n### Key Responsibilities\n- Build Android UI features using Jetpack Compose or XML with Material Design.\n- Integrate REST APIs using Retrofit and handle responses with coroutines.\n- Implement MVVM architecture with ViewModel and LiveData.\n- Write unit tests with JUnit and Mockk.\n\n### Qualifications & Requirements\n- 0-2 years Android/Kotlin development or strong portfolio apps.\n- Proficiency in Kotlin language features (coroutines, extension functions).\n- Familiarity with Android SDK and Jetpack libraries.\n\n### What We Offer\n- Mentorship, Kotlin-first codebase, remote-friendly."
+  },
+  {
+    "id": "mid-kotlin-developer",
+    "title": "Android Developer (Kotlin & Jetpack Compose)",
+    "department": "Mobile",
+    "category": "Android",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["Kotlin", "Jetpack Compose", "Android SDK", "Coroutines", "Retrofit", "Room", "MVVM", "Git"],
+    "preferredSkills": ["Hilt/Dagger", "WorkManager", "Firebase", "DataStore", "Navigation Component"],
+    "description": "### About the Role\nWe are hiring an **Android Developer** to build and maintain our Kotlin/Jetpack Compose Android application.\n\n### Key Responsibilities\n- Design and implement Android features using Jetpack Compose and Material 3.\n- Manage app state and data persistence with Room, DataStore, and ViewModel.\n- Implement dependency injection with Hilt and background processing with WorkManager.\n- Optimize app performance, reduce APK size, and improve startup time.\n\n### Qualifications & Requirements\n- 2-4 years professional Android/Kotlin development.\n- Strong Jetpack Compose and Kotlin Coroutines knowledge.\n- Experience with MVVM and Clean Architecture patterns.\n\n### What We Offer\n- Competitive salary, millions of active users, remote option."
+  },
+  {
+    "id": "senior-kotlin-developer",
+    "title": "Senior Android Engineer (Kotlin)",
+    "department": "Mobile",
+    "category": "Android",
+    "experienceLevel": "Senior",
+    "requiredSkills": ["Kotlin", "Jetpack Compose", "Android SDK", "Coroutines", "Hilt", "MVI or Clean Architecture", "Firebase", "Kotlin Multiplatform"],
+    "preferredSkills": ["KMP", "Baseline Profiles", "Compose Multiplatform", "Android performance tools", "Security"],
+    "description": "### About the Role\nAs a **Senior Android Engineer**, you will lead native Android development, establish architecture standards, and mentor the Android team.\n\n### Key Responsibilities\n- Architect modular Android applications using Clean Architecture and MVI.\n- Lead performance profiling with Android Profiler, Baseline Profiles, and R8 optimization.\n- Design shared business logic using Kotlin Multiplatform (KMP).\n- Drive code quality through code reviews, testing standards, and CI/CD pipelines.\n\n### Qualifications & Requirements\n- 5+ years native Android/Kotlin development.\n- Expert Jetpack Compose and architecture skills.\n- Experience shipping complex apps to millions of users.\n\n### What We Offer\n- Senior-level TC, mobile architecture ownership, remote-friendly."
+  },
+
+  // ─── Flutter Developer ───────────────────────────────────────
+  {
+    "id": "junior-flutter-developer",
+    "title": "Junior Flutter Developer",
+    "department": "Mobile",
+    "category": "Flutter",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["Flutter", "Dart", "Git", "REST APIs", "Mobile UI basics"],
+    "preferredSkills": ["Provider or Riverpod", "Firebase", "Bloc", "Platform channels"],
+    "description": "### About the Role\nWe are looking for a **Junior Flutter Developer** to help build our cross-platform mobile application for iOS and Android using Dart and Flutter.\n\n### Key Responsibilities\n- Build Flutter widgets, screens, and navigation flows for iOS and Android.\n- Integrate REST APIs using Dio or http package.\n- Implement state management with Provider or Riverpod.\n- Write widget tests and participate in mobile code reviews.\n\n### Qualifications & Requirements\n- 0-2 years Flutter/Dart development.\n- Understanding of Flutter widget tree, StatefulWidget vs StatelessWidget.\n- Familiarity with Firebase integration.\n\n### What We Offer\n- Mentorship, cross-platform codebase, remote-friendly culture."
+  },
+  {
+    "id": "mid-flutter-developer",
+    "title": "Flutter Developer",
+    "department": "Mobile",
+    "category": "Flutter",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["Flutter", "Dart", "Bloc or Riverpod", "REST APIs", "Firebase", "Git", "iOS & Android deployment"],
+    "preferredSkills": ["GraphQL", "Hive or Drift", "Flavors & build variants", "CI/CD", "Platform channels"],
+    "description": "### About the Role\nWe are hiring a **Flutter Developer** to deliver high-quality, cross-platform features for our mobile app serving users on both iOS and Android.\n\n### Key Responsibilities\n- Develop Flutter features using Bloc or Riverpod state management.\n- Implement offline-first data sync with Hive or Drift local storage.\n- Configure app flavors for staging/production environments.\n- Optimize Flutter rendering performance and reduce app size.\n\n### Qualifications & Requirements\n- 2-4 years professional Flutter/Dart development.\n- Strong Bloc or Riverpod state management knowledge.\n- Experience publishing apps to both App Store and Google Play.\n\n### What We Offer\n- Competitive salary, cross-platform codebase, flexible remote work."
+  },
+
+  // ─── Svelte / SvelteKit Developer ────────────────────────────
+  {
+    "id": "junior-svelte-developer",
+    "title": "Junior Svelte Developer",
+    "department": "Engineering",
+    "category": "Frontend",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["Svelte", "JavaScript", "HTML", "CSS", "Git", "REST APIs"],
+    "preferredSkills": ["SvelteKit", "TypeScript", "Tailwind CSS", "Vite"],
+    "description": "### About the Role\nWe are looking for a **Junior Svelte Developer** to contribute to our SvelteKit frontend application and learn reactive, component-based UI development.\n\n### Key Responsibilities\n- Build Svelte components, pages, and reactive stores.\n- Integrate REST or GraphQL APIs using SvelteKit load functions.\n- Implement client-side routing and form actions in SvelteKit.\n- Write component tests and participate in frontend code reviews.\n\n### Qualifications & Requirements\n- 0-2 years Svelte or modern JavaScript frontend experience.\n- Understanding of Svelte reactivity model and component lifecycle.\n- Familiarity with HTML/CSS and responsive design.\n\n### What We Offer\n- Svelte-native codebase, mentorship, remote-friendly culture."
+  },
+  {
+    "id": "mid-svelte-developer",
+    "title": "Svelte / SvelteKit Developer",
+    "department": "Engineering",
+    "category": "Frontend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["Svelte", "SvelteKit", "TypeScript", "REST APIs", "Tailwind CSS", "Git", "Vite"],
+    "preferredSkills": ["GraphQL", "Paraglide i18n", "Playwright", "SSR/SSG", "pnpm"],
+    "description": "### About the Role\nWe are hiring a **SvelteKit Developer** to build and maintain our Svelte-based web application, delivering fast, reactive UIs with server-side rendering.\n\n### Key Responsibilities\n- Design and implement SvelteKit pages, layouts, and server routes.\n- Optimize SSR, SSG, and ISR strategies for performance.\n- Build reusable Svelte component libraries with TypeScript.\n- Write end-to-end tests with Playwright and unit tests with Vitest.\n\n### Qualifications & Requirements\n- 2-4 years Svelte/SvelteKit professional development.\n- Strong TypeScript and reactive programming skills.\n- Experience with SSR patterns and Vite tooling.\n\n### What We Offer\n- Competitive salary, cutting-edge Svelte stack, remote-first."
+  },
+  {
+    "id": "senior-svelte-developer",
+    "title": "Senior Svelte Engineer",
+    "department": "Engineering",
+    "category": "Frontend",
+    "experienceLevel": "Senior",
+    "requiredSkills": ["Svelte", "SvelteKit", "TypeScript", "REST APIs", "GraphQL", "Vite", "SSR", "Performance Optimization"],
+    "preferredSkills": ["Runes (Svelte 5)", "SvelteKit adapter-node", "Edge deployment", "Component libraries"],
+    "description": "### About the Role\nAs a **Senior Svelte Engineer**, you will lead our SvelteKit frontend architecture, mentor developers, and drive Svelte best practices across the team.\n\n### Key Responsibilities\n- Architect modular SvelteKit applications with Svelte 5 Runes and advanced patterns.\n- Lead performance optimization: code splitting, hydration strategy, and Core Web Vitals.\n- Build internal Svelte component libraries and design system integration.\n- Mentor developers and define frontend engineering standards.\n\n### Qualifications & Requirements\n- 5+ years modern frontend development, 3+ years Svelte/SvelteKit.\n- Expert Svelte reactivity and SvelteKit routing/data loading patterns.\n- Experience with large-scale SSR applications and edge deployment.\n\n### What We Offer\n- Senior-level pay, Svelte-native platform, remote-first."
+  },
+
+  // ─── Django Developer ────────────────────────────────────────
+  {
+    "id": "junior-django-developer",
+    "title": "Junior Django Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["Python", "Django", "PostgreSQL", "HTML", "CSS", "Git", "REST APIs"],
+    "preferredSkills": ["Django REST Framework", "Celery", "Docker", "SQLite"],
+    "description": "### About the Role\nWe are hiring a **Junior Django Developer** to help build and maintain Python/Django web applications and REST APIs.\n\n### Key Responsibilities\n- Develop Django views, models, URLs, and templates.\n- Write Django ORM queries and manage database migrations.\n- Build REST APIs using Django REST Framework.\n- Fix bugs, write unit tests with Django TestCase, and participate in code reviews.\n\n### Qualifications & Requirements\n- 0-2 years Django or Python web development.\n- Understanding of Django MVT pattern and ORM.\n- Familiarity with PostgreSQL and Git.\n\n### What We Offer\n- Mentorship, Python/Django-first codebase, remote-friendly."
+  },
+  {
+    "id": "mid-django-developer",
+    "title": "Django Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["Python", "Django", "Django REST Framework", "PostgreSQL", "Redis", "Celery", "Docker", "Git"],
+    "preferredSkills": ["GraphQL (Strawberry/Graphene)", "JWT auth", "AWS S3", "Channels (WebSockets)", "pytest"],
+    "description": "### About the Role\nWe are hiring a **Django Developer** to design, implement, and maintain backend APIs and services for our Python-powered SaaS platform.\n\n### Key Responsibilities\n- Build scalable REST APIs using Django REST Framework.\n- Implement background task queues with Celery and Redis.\n- Design database schemas, write complex ORM queries, and manage migrations.\n- Integrate third-party APIs (Stripe, SendGrid, AWS S3) and write integration tests.\n\n### Qualifications & Requirements\n- 2-4 years professional Django/Python development.\n- Strong Django REST Framework and ORM knowledge.\n- Experience with Celery, Redis, and Docker.\n\n### What We Offer\n- Competitive salary, Django-centric stack, flexible remote work."
+  },
+  {
+    "id": "senior-django-developer",
+    "title": "Senior Django Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Senior",
+    "requiredSkills": ["Python", "Django", "Django REST Framework", "PostgreSQL", "Redis", "Celery", "Docker", "AWS", "Performance Optimization"],
+    "preferredSkills": ["Django Channels", "HTMX", "Kubernetes", "Elasticsearch", "DataDog"],
+    "description": "### About the Role\nAs a **Senior Django Developer**, you will lead backend architecture, optimize Django performance, and mentor the Python engineering team.\n\n### Key Responsibilities\n- Architect and optimize high-traffic Django applications with complex business logic.\n- Lead Django ORM query optimization, caching strategies, and async task design.\n- Design multi-tenant architectures, background job scheduling, and admin tooling.\n- Mentor developers, conduct code reviews, and establish Django best practices.\n\n### Qualifications & Requirements\n- 5+ years Django/Python production experience.\n- Expert Django ORM, DRF serializers, and Django internals knowledge.\n- Experience with high-traffic SaaS applications and cloud deployments.\n\n### What We Offer\n- Senior pay band, Python platform ownership, remote-first."
+  },
+  {
+    "id": "lead-django-developer",
+    "title": "Lead Django Engineer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Lead",
+    "requiredSkills": ["Python", "Django", "Microservices", "PostgreSQL", "Redis", "Kubernetes", "Team Leadership", "API Design"],
+    "preferredSkills": ["Event-driven architecture", "OpenAPI", "DataDog", "Terraform", "SOC 2"],
+    "description": "### About the Role\nThe **Lead Django Engineer** will own the Python backend platform, lead the Django engineering team, and shape the technical roadmap.\n\n### Key Responsibilities\n- Own Django platform architecture and define the multi-year technical roadmap.\n- Lead a team of 4-6 Python/Django engineers.\n- Drive framework upgrades, performance initiatives, and tech debt reduction.\n- Collaborate with product, DevOps, and security on cross-functional initiatives.\n\n### Qualifications & Requirements\n- 8+ years Django/Python development, 2+ years tech lead experience.\n- Deep Django internals and software architecture knowledge.\n- Experience managing technical teams and stakeholder communication.\n\n### What We Offer\n- Lead-level compensation, broad platform ownership, equity."
+  },
+
+  // ─── FastAPI Developer ───────────────────────────────────────
+  {
+    "id": "junior-fastapi-developer",
+    "title": "Junior FastAPI Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["Python", "FastAPI", "PostgreSQL", "Git", "REST APIs", "Pydantic"],
+    "preferredSkills": ["SQLAlchemy", "Alembic", "Docker", "JWT", "Pytest"],
+    "description": "### About the Role\nWe are looking for a **Junior FastAPI Developer** to help build high-performance REST APIs and async backend services using FastAPI and Python.\n\n### Key Responsibilities\n- Develop FastAPI endpoint handlers, Pydantic models, and dependency injection.\n- Write SQLAlchemy ORM models and Alembic database migrations.\n- Implement JWT-based authentication and authorization.\n- Write Pytest-based tests and document APIs via auto-generated OpenAPI docs.\n\n### Qualifications & Requirements\n- 0-2 years Python/FastAPI development.\n- Understanding of async Python (asyncio, await).\n- Familiarity with Pydantic data validation and PostgreSQL.\n\n### What We Offer\n- FastAPI-native codebase, mentorship, modern async Python development."
+  },
+  {
+    "id": "mid-fastapi-developer",
+    "title": "FastAPI Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "Redis", "Docker", "Pydantic", "Async Python"],
+    "preferredSkills": ["Kafka or Celery", "AWS Lambda", "OpenAPI", "Background tasks", "Pytest-asyncio"],
+    "description": "### About the Role\nWe are hiring a **FastAPI Developer** to design and build async Python APIs, background workers, and event-driven services.\n\n### Key Responsibilities\n- Design async FastAPI services with dependency injection and middleware.\n- Implement async SQLAlchemy sessions and efficient database query patterns.\n- Build background task processors using Celery or FastAPI BackgroundTasks.\n- Integrate with Kafka or RabbitMQ for event-driven workflows.\n\n### Qualifications & Requirements\n- 2-4 years Python development, 1+ years FastAPI.\n- Strong async Python and SQLAlchemy (async) expertise.\n- Experience with Docker and cloud deployments.\n\n### What We Offer\n- Competitive salary, async Python-first stack, remote-friendly culture."
+  },
+  {
+    "id": "senior-fastapi-developer",
+    "title": "Senior FastAPI Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Senior",
+    "requiredSkills": ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy (async)", "Redis", "Kafka", "Docker", "AWS or GCP", "Microservices"],
+    "preferredSkills": ["GraphQL (Strawberry)", "gRPC", "OpenTelemetry", "Kubernetes", "rate limiting"],
+    "description": "### About the Role\nAs a **Senior FastAPI Developer**, you will lead the design and delivery of our async Python microservices platform, setting architecture standards and mentoring the team.\n\n### Key Responsibilities\n- Design high-performance async FastAPI microservices processing millions of requests.\n- Lead event-driven architecture design with Kafka and async consumers.\n- Establish FastAPI project structure, dependency injection patterns, and middleware standards.\n- Mentor engineers and drive API design reviews and OpenAPI documentation.\n\n### Qualifications & Requirements\n- 5+ years Python backend, 2+ years FastAPI production experience.\n- Expert async Python, SQLAlchemy async ORM, and microservices design.\n- Cloud deployment experience with Kubernetes or serverless.\n\n### What We Offer\n- Senior-level TC, async-first culture, remote-first with async collaboration."
+  },
+  {
+    "id": "lead-fastapi-developer",
+    "title": "Lead FastAPI Engineer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Lead",
+    "requiredSkills": ["Python", "FastAPI", "Microservices", "Kubernetes", "PostgreSQL", "Team Leadership", "System Architecture", "API Design"],
+    "preferredSkills": ["Platform Engineering", "OpenTelemetry", "Terraform", "Service Mesh", "DataDog"],
+    "description": "### About the Role\nThe **Lead FastAPI Engineer** will own the Python async backend platform, lead the engineering team, and define the FastAPI microservices architecture strategy.\n\n### Key Responsibilities\n- Own the FastAPI platform architecture and shape the technical roadmap.\n- Lead a team of 4-6 Python/FastAPI engineers.\n- Drive API governance, schema standards, and OpenAPI documentation culture.\n- Collaborate with DevOps on Kubernetes deployment, observability, and SLOs.\n\n### Qualifications & Requirements\n- 8+ years Python development, 3+ years FastAPI, 2+ years tech lead experience.\n- Strong microservices architecture and distributed systems knowledge.\n- Proven leadership in engineering team management.\n\n### What We Offer\n- Lead-level compensation, broad platform ownership, equity."
+  },
+
+  // ─── Next.js Developer ───────────────────────────────────────
+  {
+    "id": "junior-next-developer",
+    "title": "Junior Next.js Developer",
+    "department": "Engineering",
+    "category": "Frontend",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["Next.js", "React", "TypeScript", "HTML", "CSS", "Git", "REST APIs"],
+    "preferredSkills": ["Tailwind CSS", "SWR or React Query", "Prisma", "Vercel"],
+    "description": "### About the Role\nWe are looking for a **Junior Next.js Developer** to build and maintain our Next.js web application, learning full stack development in a modern React framework.\n\n### Key Responsibilities\n- Develop Next.js pages, layouts, and API routes using App Router.\n- Implement server-side rendering (SSR), static generation (SSG), and client components.\n- Integrate REST APIs and third-party services.\n- Write component tests and participate in frontend code reviews.\n\n### Qualifications & Requirements\n- 0-2 years Next.js or React development.\n- Understanding of Next.js App Router, Server Components, and Client Components.\n- Familiarity with TypeScript and Tailwind CSS.\n\n### What We Offer\n- Mentorship, Next.js App Router codebase, remote-friendly culture."
+  },
+  {
+    "id": "mid-next-developer",
+    "title": "Next.js Developer",
+    "department": "Engineering",
+    "category": "Frontend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["Next.js", "React", "TypeScript", "Tailwind CSS", "REST APIs", "PostgreSQL", "Git"],
+    "preferredSkills": ["Prisma", "tRPC", "NextAuth", "Zustand", "Vercel Edge"],
+    "description": "### About the Role\nWe are hiring a **Next.js Developer** to build full stack features across our Next.js application, covering both frontend UI and backend API routes.\n\n### Key Responsibilities\n- Build Next.js App Router pages, server actions, and API routes.\n- Implement authentication with NextAuth.js and manage session state.\n- Design and consume type-safe APIs using tRPC or REST.\n- Optimize Core Web Vitals and implement image, font, and bundle optimizations.\n\n### Qualifications & Requirements\n- 2-4 years professional Next.js or React development.\n- Strong TypeScript proficiency and Next.js App Router knowledge.\n- Experience with server-side data fetching, caching, and streaming.\n\n### What We Offer\n- Competitive salary, full stack Next.js codebase, remote-first."
+  },
+  {
+    "id": "senior-next-developer",
+    "title": "Senior Next.js Developer",
+    "department": "Engineering",
+    "category": "Frontend",
+    "experienceLevel": "Senior",
+    "requiredSkills": ["Next.js", "React", "TypeScript", "PostgreSQL", "Tailwind CSS", "tRPC or GraphQL", "Vercel or AWS", "Performance Optimization"],
+    "preferredSkills": ["RSC patterns", "Edge Runtime", "OpenTelemetry", "Turborepo", "CDN optimization"],
+    "description": "### About the Role\nAs a **Senior Next.js Developer**, you will lead the architecture and performance of our Next.js platform, establish best practices, and mentor the frontend team.\n\n### Key Responsibilities\n- Architect modular, scalable Next.js applications using App Router and React Server Components.\n- Lead Core Web Vitals optimization: LCP, INP, CLS improvements.\n- Design full stack features with server actions, streaming, and edge deployments.\n- Mentor developers and drive Next.js architectural decisions.\n\n### Qualifications & Requirements\n- 5+ years React development, 3+ years Next.js.\n- Expert Next.js App Router, RSC, and streaming patterns.\n- Experience deploying Next.js at scale on Vercel or AWS.\n\n### What We Offer\n- Senior-level pay, Next.js platform ownership, remote-first."
+  },
+
+  // ─── Java Developer (plain / generic) ───────────────────────
+  {
+    "id": "junior-java-developer",
+    "title": "Junior Java Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["Java", "Spring Boot basics", "MySQL or PostgreSQL", "REST APIs", "Git", "Maven or Gradle"],
+    "preferredSkills": ["Spring Data JPA", "Hibernate", "Docker", "JUnit 5"],
+    "description": "### About the Role\nWe are hiring a **Junior Java Developer** to help build enterprise backend services using Java and Spring Boot.\n\n### Key Responsibilities\n- Develop Spring Boot REST controllers, services, and JPA repositories.\n- Write Hibernate ORM entities and manage Flyway database migrations.\n- Implement basic security with Spring Security and JWT.\n- Write JUnit 5 unit tests and participate in code reviews.\n\n### Qualifications & Requirements\n- 0-2 years Java or Spring Boot development.\n- Understanding of Java OOP, collections, and generics.\n- Familiarity with Spring Boot and PostgreSQL.\n\n### What We Offer\n- Mentorship, Java/Spring Boot codebase, remote-friendly culture."
+  },
+  {
+    "id": "mid-java-developer",
+    "title": "Java Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["Java", "Spring Boot", "Spring Data JPA", "PostgreSQL", "Redis", "REST APIs", "Docker", "Git"],
+    "preferredSkills": ["Kafka", "Spring Security", "MapStruct", "Testcontainers", "AWS"],
+    "description": "### About the Role\nWe are hiring a **Java Developer** to design and implement backend microservices and REST APIs using Java and Spring Boot.\n\n### Key Responsibilities\n- Build scalable Spring Boot microservices with clean layered architecture.\n- Implement caching with Redis, messaging with Kafka, and async processing.\n- Design RESTful APIs following OpenAPI spec and implement security best practices.\n- Write integration tests with Testcontainers and maintain CI/CD pipelines.\n\n### Qualifications & Requirements\n- 2-4 years professional Java/Spring Boot development.\n- Strong Java 11+ knowledge and Spring ecosystem familiarity.\n- Experience with Docker, Redis, and cloud environments.\n\n### What We Offer\n- Competitive salary, modern Java stack, flexible remote work."
+  },
+
+  // ─── C# Developer (generic) ──────────────────────────────────
+  {
+    "id": "junior-csharp-developer",
+    "title": "Junior C# / .NET Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["C#", ".NET", "ASP.NET Core", "SQL Server or PostgreSQL", "REST APIs", "Git"],
+    "preferredSkills": ["Entity Framework Core", "LINQ", "Docker", "xUnit"],
+    "description": "### About the Role\nWe are looking for a **Junior C# / .NET Developer** to contribute to our ASP.NET Core backend APIs and services.\n\n### Key Responsibilities\n- Develop ASP.NET Core Web API controllers, services, and EF Core repositories.\n- Write LINQ queries and manage EF Core database migrations.\n- Implement JWT authentication with ASP.NET Core Identity.\n- Write xUnit tests and participate in code reviews.\n\n### Qualifications & Requirements\n- 0-2 years C#/.NET development experience.\n- Understanding of C# OOP, LINQ, and ASP.NET Core MVC pattern.\n- Familiarity with Entity Framework Core and SQL databases.\n\n### What We Offer\n- Mentorship, .NET-first codebase, remote-friendly culture."
+  },
+  {
+    "id": "mid-csharp-developer",
+    "title": "C# .NET Developer",
+    "department": "Engineering",
+    "category": "Backend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["C#", ".NET 8", "ASP.NET Core", "Entity Framework Core", "PostgreSQL", "Redis", "Docker", "REST APIs"],
+    "preferredSkills": ["MediatR (CQRS)", "SignalR", "Kafka", "Azure or AWS", "xUnit"],
+    "description": "### About the Role\nWe are hiring a **C# .NET Developer** to build and optimize backend APIs and enterprise services on the .NET 8 platform.\n\n### Key Responsibilities\n- Design scalable ASP.NET Core APIs using CQRS with MediatR and FluentValidation.\n- Implement real-time features with SignalR and background processing with Hangfire.\n- Optimize EF Core queries, manage migrations, and design efficient schemas.\n- Write comprehensive tests and maintain CI/CD with GitHub Actions or Azure DevOps.\n\n### Qualifications & Requirements\n- 2-4 years C#/.NET professional development.\n- Strong ASP.NET Core and EF Core knowledge.\n- Experience with Docker and cloud deployments (Azure or AWS).\n\n### What We Offer\n- Competitive salary, .NET 8 platform, flexible remote work."
+  },
+
+  // ─── React Developer (additional generic mid) ────────────────
+  {
+    "id": "mid-react-developer",
+    "title": "React Developer",
+    "department": "Engineering",
+    "category": "Frontend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["React", "TypeScript", "REST APIs", "HTML", "CSS", "Git", "Tailwind CSS or CSS Modules"],
+    "preferredSkills": ["Next.js", "React Query", "Zustand or Redux", "Vite", "Testing Library"],
+    "description": "### About the Role\nWe are hiring a **React Developer** to build and maintain our React frontend application, delivering a rich user experience across web and mobile browsers.\n\n### Key Responsibilities\n- Build reusable React components and feature pages with TypeScript.\n- Manage server state with React Query or SWR and client state with Zustand.\n- Implement routing, lazy loading, and code splitting strategies.\n- Write component tests with React Testing Library and maintain CI pipelines.\n\n### Qualifications & Requirements\n- 2-4 years professional React development.\n- Strong TypeScript and React Hooks knowledge.\n- Experience with REST API integration and performance optimization.\n\n### What We Offer\n- Competitive salary, React-first codebase, remote-friendly culture."
+  },
+
+  // ─── Vue.js Developer (junior + mid) ─────────────────────────
+  {
+    "id": "junior-vue-developer",
+    "title": "Junior Vue.js Developer",
+    "department": "Engineering",
+    "category": "Frontend",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["Vue.js", "JavaScript", "HTML", "CSS", "Git", "REST APIs"],
+    "preferredSkills": ["Vue Router", "Pinia", "TypeScript", "Vite", "Tailwind CSS"],
+    "description": "### About the Role\nWe are looking for a **Junior Vue.js Developer** to help build reactive frontend UIs and components using Vue 3 and the Composition API.\n\n### Key Responsibilities\n- Build Vue 3 single-file components (.vue) using Composition API.\n- Manage routing with Vue Router and state with Pinia.\n- Integrate REST APIs using Axios or fetch.\n- Write unit tests with Vitest and participate in frontend code reviews.\n\n### Qualifications & Requirements\n- 0-2 years Vue.js or JavaScript frontend development.\n- Understanding of Vue 3 Composition API and reactivity system.\n- Familiarity with HTML/CSS and responsive design.\n\n### What We Offer\n- Mentorship, Vue 3-first codebase, remote-friendly culture."
+  },
+  {
+    "id": "mid-vue-developer",
+    "title": "Vue.js Developer",
+    "department": "Engineering",
+    "category": "Frontend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["Vue.js 3", "TypeScript", "Pinia", "Vue Router", "REST APIs", "Vite", "Git"],
+    "preferredSkills": ["Nuxt.js", "GraphQL", "Vitest", "Playwright", "Tailwind CSS"],
+    "description": "### About the Role\nWe are hiring a **Vue.js Developer** to build and maintain our Vue 3 frontend application with TypeScript, delivering performant and maintainable UIs.\n\n### Key Responsibilities\n- Design modular Vue 3 components with Composition API and TypeScript.\n- Implement complex state management patterns with Pinia.\n- Optimize Vue app performance: lazy loading, virtual scroll, and render optimization.\n- Write Vitest unit tests and Playwright end-to-end tests.\n\n### Qualifications & Requirements\n- 2-4 years professional Vue.js development (Vue 3 preferred).\n- Strong TypeScript and Vue 3 Composition API proficiency.\n- Experience with Pinia and Vue Router.\n\n### What We Offer\n- Competitive salary, Vue 3 TypeScript stack, remote-friendly."
+  },
+
+  // ─── Angular Developer (junior + mid) ────────────────────────
+  {
+    "id": "junior-angular-developer",
+    "title": "Junior Angular Developer",
+    "department": "Engineering",
+    "category": "Frontend",
+    "experienceLevel": "Entry-level",
+    "requiredSkills": ["Angular", "TypeScript", "HTML", "CSS", "RxJS basics", "Git", "REST APIs"],
+    "preferredSkills": ["Angular Material", "NgRx", "Jasmine", "Karma"],
+    "description": "### About the Role\nWe are looking for a **Junior Angular Developer** to help build enterprise web applications using Angular and TypeScript.\n\n### Key Responsibilities\n- Develop Angular components, services, pipes, and guards.\n- Manage reactive data flows with RxJS Observables and async pipes.\n- Integrate REST APIs using HttpClient with interceptors.\n- Write unit tests with Jasmine/Karma and participate in code reviews.\n\n### Qualifications & Requirements\n- 0-2 years Angular or TypeScript frontend development.\n- Understanding of Angular component lifecycle and dependency injection.\n- Familiarity with RxJS basics and TypeScript.\n\n### What We Offer\n- Mentorship, Angular enterprise codebase, remote-friendly."
+  },
+  {
+    "id": "mid-angular-developer",
+    "title": "Angular Developer",
+    "department": "Engineering",
+    "category": "Frontend",
+    "experienceLevel": "Mid-level",
+    "requiredSkills": ["Angular", "TypeScript", "RxJS", "NgRx", "REST APIs", "Angular Material", "Git", "Docker"],
+    "preferredSkills": ["Angular Standalone components", "SSR with Angular Universal", "Cypress", "NX Monorepo"],
+    "description": "### About the Role\nWe are hiring an **Angular Developer** to build complex enterprise UIs and implement reactive state management patterns using Angular and NgRx.\n\n### Key Responsibilities\n- Design and implement Angular features using standalone components and signals.\n- Manage complex state with NgRx Store, Effects, and Selectors.\n- Implement lazy loading, route guards, and performance optimization.\n- Write Cypress e2e and Jest unit tests and maintain CI pipelines.\n\n### Qualifications & Requirements\n- 2-4 years professional Angular development.\n- Strong NgRx and RxJS knowledge.\n- Experience with large-scale Angular applications.\n\n### What We Offer\n- Competitive salary, Angular enterprise stack, remote-friendly."
   }
 ];
 
