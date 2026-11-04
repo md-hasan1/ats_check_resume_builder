@@ -1,8 +1,3 @@
-/**
- * Automated test suite for the Production-Ready ATS Resume Checker Engine.
- * Execute with: npx tsx tests/ats-engine.test.ts
- */
-
 import { areAliases, getCanonicalSkill } from "../src/lib/ats/aliases";
 import { normalizeText, simplifyTechTerm, isStopword } from "../src/lib/ats/normalizer";
 import { matchKeywordAgainstText, matchKeywords } from "../src/lib/ats/keyword-matcher";
