@@ -7,7 +7,7 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node node_modules/jiti/lib/jiti-cli.mjs tests/ats-engine.test.ts && node node_modules/jiti/lib/jiti-cli.mjs tests/designations.test.ts",
+    "test": "node node_modules/jiti/lib/jiti-cli.mjs tests/ats-engine.test.ts && node node_modules/jiti/lib/jiti-cli.mjs tests/designations.test.ts && node node_modules/jiti/lib/jiti-cli.mjs tests/multi-job-ats.test.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {

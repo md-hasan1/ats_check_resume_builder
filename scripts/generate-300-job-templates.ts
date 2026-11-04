@@ -1555,3 +1555,4 @@ export function getJobTemplateByTitle(title: string): JobTemplate | undefined {
 
 fs.writeFileSync(outputPath, fileContent, "utf-8");
 console.log(`✓ Successfully saved ${templates.length} templates to: ${outputPath}`);
+

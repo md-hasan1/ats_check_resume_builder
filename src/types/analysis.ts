@@ -18,6 +18,46 @@ export interface AnalysisResult {
   actionVerbSuggestions: ActionVerbSuggestion[];
   matchPercentages: MatchPercentages;
   summary: string;
+  multiJobAnalysis?: MultiJobAnalysisSummary;
+}
+
+export interface SingleJobMatchSummary {
+  jobId: string;
+  jobTitle: string;
+  company: string;
+  experienceLevel?: string;
+  overallScore: number;
+  keywordScore: number;
+  skillScore: number;
+  matchedSkillsCount: number;
+  missingSkillsCount: number;
+  matchedSkills: string[];
+  missingSkills: string[];
+  status: "strong_match" | "moderate_match" | "low_match";
+}
+
+export interface MarketSkillConsensus {
+  skill: string;
+  frequency: number;
+  percentage: number;
+  isCore: boolean;
+  matchedInResume: boolean;
+  matchType?: string;
+}
+
+export interface MultiJobAnalysisSummary {
+  totalJobsAnalyzed: number;
+  averageScore: number;
+  highestScore: number;
+  lowestScore: number;
+  strongMatchCount: number;
+  moderateMatchCount: number;
+  lowMatchCount: number;
+  coreSkillsCount: number;
+  matchedCoreSkillsCount: number;
+  consensusSkills: MarketSkillConsensus[];
+  jobBreakdowns: SingleJobMatchSummary[];
+  benchmarkTitle: string;
 }
 
 export interface ScoreCategory {

@@ -294,6 +294,7 @@ export function formatAsFullAnalysisResult(report: ATSReport) {
       reason: r.message,
     })),
     actionVerbSuggestions: [],
+    multiJobAnalysis: report.multiJobSummary,
     matchPercentages: {
       overall: report.overallScore,
       technical: report.breakdown.skillMatch,

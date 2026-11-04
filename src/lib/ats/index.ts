@@ -14,3 +14,4 @@ export * from "./scoring-engine";
 export * from "./recommendations";
 export * from "./document-indexer";
 export * from "./engine";
+export * from "./multi-job-engine";

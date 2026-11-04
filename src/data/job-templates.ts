@@ -7302,3 +7302,35 @@ export function getJobTemplateByTitle(title: string): JobTemplate | undefined {
   const results = searchJobTemplates(title, "All", 1);
   return results[0];
 }
+
+/**
+ * Retrieves multiple diverse job templates for a target designation / skill to support
+ * multi-job ATS benchmarking across the market.
+ */
+export function getMultipleJobTemplatesForDesignation(
+  queryOrTitle: string,
+  count = 5
+): JobTemplate[] {
+  if (!queryOrTitle || !queryOrTitle.trim()) {
+    return JOB_TEMPLATES.slice(0, count);
+  }
+
+  // 1. Search with fuzzy aliases
+  const matched = searchJobTemplates(queryOrTitle, "All", Math.max(count * 2, 10));
+  if (matched.length >= count) {
+    return matched.slice(0, count);
+  }
+
+  // 2. If fewer than requested, fill with same department or category
+  const first = matched[0];
+  if (first) {
+    const additional = JOB_TEMPLATES.filter(
+      (j) =>
+        (j.department === first.department || j.category === first.category) &&
+        !matched.some((m) => m.id === j.id)
+    );
+    return [...matched, ...additional].slice(0, count);
+  }
+
+  return JOB_TEMPLATES.slice(0, count);
+}

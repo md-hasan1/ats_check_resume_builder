@@ -23,6 +23,10 @@ import {
   Brain,
   Download,
   AlertCircle,
+  Layers,
+  Building2,
+  TrendingUp,
+  ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
 import type { AnalysisResult } from "@/types/analysis";
@@ -56,7 +60,7 @@ function SeverityIcon({ severity }: { severity: string }) {
   return <Info className="h-4 w-4 text-blue-500" />;
 }
 
-const tabList = [
+const baseTabList = [
   { id: "overview", label: "Overview", icon: BarChart3 },
   { id: "keywords", label: "Keywords", icon: Target },
   { id: "analysis", label: "Section Analysis", icon: ListChecks },
@@ -158,45 +162,77 @@ export default function ATSResultPage() {
   const offset = circumference - (analysis.overallScore / 100) * circumference;
 
   // Filter out any non-skill words or boilerplate
-  const matchedKeywords = (analysis.keywordAnalysis?.matchedKeywords || []).filter(
-    (kw) => !STOP_WORDS.has(kw.keyword.toLowerCase().trim())
-  );
+  const stopWordsSet = new Set([
+    ...STOP_WORDS,
+    "responsibilities",
+    "requirements",
+    "qualifications",
+    "description",
+    "experience",
+    "ability",
+    "knowledge",
+    "skills",
+    "preferred",
+    "required",
+    "including",
+    "work",
+    "role",
+    "team",
+  ]);
+
   const missingKeywords = (analysis.keywordAnalysis?.missingKeywords || []).filter(
-    (kw) => !STOP_WORDS.has(kw.keyword.toLowerCase().trim())
+    (kw) => !stopWordsSet.has(kw.keyword.toLowerCase().trim())
+  );
+  const matchedKeywords = (analysis.keywordAnalysis?.matchedKeywords || []).filter(
+    (kw) => !stopWordsSet.has(kw.keyword.toLowerCase().trim())
   );
 
-  const cleanSummary = analysis.summary?.replace(
-    /Recommended adding\s+([^.]+)\s+to boost/i,
-    (_match, p1) => {
-      const validWords = p1
-        .split(",")
-        .map((w: string) => w.trim())
-        .filter((w: string) => !STOP_WORDS.has(w.toLowerCase()));
-      return validWords.length > 0
-        ? `Recommended adding ${validWords.join(", ")} to boost`
-        : "Focus on incorporating target technical skills to boost";
-    }
-  );
+  const cleanSummary = (analysis.summary || "").replace(/undefined/gi, "Standard ATS");
+
+  const multiJob = analysis.multiJobAnalysis;
+
+  // Dynamic tabs: Add Multi-Job Benchmark tab when present
+  const tabs = multiJob
+    ? [
+        { id: "overview", label: "Overview", icon: BarChart3 },
+        { id: "market", label: `Multi-Job Benchmark (${multiJob.totalJobsAnalyzed} Jobs)`, icon: Layers },
+        { id: "keywords", label: "Keywords", icon: Target },
+        { id: "analysis", label: "Section Analysis", icon: ListChecks },
+        { id: "ats", label: "ATS Compatibility", icon: Layout },
+        { id: "recommendations", label: "Recommendations", icon: Sparkles },
+      ]
+    : baseTabList;
 
   return (
-    <motion.div variants={container} initial="hidden" animate="show" className="space-y-6">
-      {/* Header */}
-      <motion.div variants={item} className="flex items-center justify-between flex-wrap gap-3">
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="mx-auto max-w-5xl space-y-6 pb-12"
+    >
+      {/* Header Bar */}
+      <motion.div variants={item} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <Link
-            href="/history"
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/50 text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
-            title="Back to History"
+            href="/ats-checker"
+            className="rounded-xl border border-border/60 p-2 text-muted-foreground hover:bg-muted/50 transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <div>
-            <h1 className="font-heading text-xl font-bold sm:text-2xl flex items-center gap-2">
-              {reportMeta?.name || "ATS Analysis Results"}
-            </h1>
+            <div className="flex items-center gap-2">
+              <h1 className="font-heading text-xl sm:text-2xl font-bold">
+                {reportMeta?.name || "ATS Compatibility Report"}
+              </h1>
+              {multiJob && (
+                <span className="rounded-md bg-primary-500/10 text-primary-500 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 border border-primary-500/20">
+                  {multiJob.totalJobsAnalyzed} Jobs Analyzed
+                </span>
+              )}
+            </div>
             <p className="text-xs text-muted-foreground mt-0.5">
-              {reportMeta?.fileName && `Resume: ${reportMeta.fileName}`}
-              {reportMeta?.createdAt && ` • Checked on ${new Date(reportMeta.createdAt).toLocaleDateString()}`}
+              Resume: {reportMeta?.fileName || "Uploaded Resume"} • Checked on{" "}
+              {reportMeta?.createdAt ? new Date(reportMeta.createdAt).toLocaleDateString() : "Today"}
             </p>
           </div>
         </div>
@@ -247,6 +283,11 @@ export default function ATSResultPage() {
               >
                 {getScoreLabel(analysis.overallScore)}
               </span>
+              {multiJob && (
+                <span className="text-xs text-muted-foreground font-medium">
+                  (Market Average across {multiJob.totalJobsAnalyzed} postings)
+                </span>
+              )}
             </div>
             <p className="mt-3 text-sm text-foreground/80 leading-relaxed max-w-2xl">
               {cleanSummary || analysis.summary}
@@ -326,15 +367,15 @@ export default function ATSResultPage() {
       </motion.div>
 
       {/* Tabs Navigation */}
-      <div className="flex gap-2 overflow-x-auto border-b border-border/50 pb-2">
-        {tabList.map((tab) => {
+      <div className="flex gap-2 overflow-x-auto border-b border-border/50 pb-2 scrollbar-none">
+        {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
           return (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all whitespace-nowrap ${
+              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${
                 isActive
                   ? "bg-primary-500 text-white shadow-md shadow-primary-500/25"
                   : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
@@ -349,115 +390,374 @@ export default function ATSResultPage() {
 
       {/* Tab 1: Overview */}
       {activeTab === "overview" && (
-        <motion.div variants={item} className="grid gap-6 md:grid-cols-2">
-          {/* Matched vs Missing Keywords Highlights */}
-          <div className="glass rounded-2xl p-6">
-            <h3 className="font-heading text-base font-semibold flex items-center gap-2 mb-4">
-              <Target className="h-5 w-5 text-primary-500" />
-              Top Missing Keywords
-            </h3>
-            {missingKeywords.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {missingKeywords.slice(0, 10).map((kw, i) => (
-                  <span
-                    key={i}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-rose-500/10 text-rose-500 text-xs font-semibold border border-rose-500/20"
-                  >
-                    <XCircle className="h-3 w-3" />
-                    {kw.keyword}
+        <motion.div variants={item} className="space-y-6">
+          {/* Multi-Job Market Benchmark Summary Banner (if active) */}
+          {multiJob && (
+            <div className="rounded-2xl border border-primary-500/30 bg-primary-500/5 p-6 space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="space-y-1">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-primary-500 flex items-center gap-1.5">
+                    <Layers className="h-3.5 w-3.5" /> Market Benchmark Active
                   </span>
-                ))}
-              </div>
-            ) : (
-              <p className="text-xs text-muted-foreground">No critical missing keywords identified!</p>
-            )}
-          </div>
+                  <h3 className="font-heading text-lg font-bold">
+                    Tested across {multiJob.totalJobsAnalyzed} Job Descriptions for &ldquo;{multiJob.benchmarkTitle}&rdquo;
+                  </h3>
+                  <p className="text-xs text-muted-foreground">
+                    Your resume was evaluated against multiple real industry job postings to remove company bias and identify consensus keywords.
+                  </p>
+                </div>
 
-          {/* ATS Top Highlights */}
-          <div className="glass rounded-2xl p-6">
-            <h3 className="font-heading text-base font-semibold flex items-center gap-2 mb-4">
-              <Layout className="h-5 w-5 text-emerald-500" />
-              ATS Formatting Checks
-            </h3>
-            <div className="space-y-2.5">
-              {analysis.atsCompatibility?.checks?.slice(0, 4).map((check, i) => (
-                <div key={i} className="flex items-center justify-between text-xs py-1 border-b border-border/30 last:border-0">
-                  <span className="text-muted-foreground">{check.name}</span>
-                  <span className={`font-semibold flex items-center gap-1 ${check.passed ? "text-emerald-500" : "text-rose-500"}`}>
-                    {check.passed ? <CheckCircle className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}
-                    {check.passed ? "Passed" : "Action Needed"}
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("market")}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl gradient-bg text-xs font-semibold text-white shadow-sm hover:scale-[1.02] cursor-pointer whitespace-nowrap"
+                >
+                  <span>Explore Market Breakdown</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </button>
+              </div>
+
+              {/* 4 Multi-Job Metrics */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                <div className="rounded-xl bg-background/80 border border-border/50 p-3 text-center">
+                  <span className="block text-xs text-muted-foreground">Market Average</span>
+                  <span className={`text-xl font-extrabold ${getScoreColor(multiJob.averageScore)}`}>
+                    {multiJob.averageScore}%
                   </span>
                 </div>
-              ))}
+                <div className="rounded-xl bg-background/80 border border-border/50 p-3 text-center">
+                  <span className="block text-xs text-muted-foreground">Score Spread</span>
+                  <span className="text-xl font-extrabold text-foreground">
+                    {multiJob.lowestScore}% - {multiJob.highestScore}%
+                  </span>
+                </div>
+                <div className="rounded-xl bg-background/80 border border-border/50 p-3 text-center">
+                  <span className="block text-xs text-muted-foreground">Strong Matches</span>
+                  <span className="text-xl font-extrabold text-emerald-500">
+                    {multiJob.strongMatchCount} / {multiJob.totalJobsAnalyzed} Jobs
+                  </span>
+                </div>
+                <div className="rounded-xl bg-background/80 border border-border/50 p-3 text-center">
+                  <span className="block text-xs text-muted-foreground">Core Skills Coverage</span>
+                  <span className="text-xl font-extrabold text-primary-500">
+                    {multiJob.matchedCoreSkillsCount} / {multiJob.coreSkillsCount}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {/* Matched vs Missing Keywords Highlights */}
+            <div className="glass rounded-2xl p-6">
+              <h3 className="font-heading text-base font-semibold flex items-center gap-2 mb-4">
+                <Target className="h-5 w-5 text-primary-500" />
+                Top Missing Keywords
+              </h3>
+              {missingKeywords.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                  {missingKeywords.slice(0, 10).map((kw, i) => (
+                    <span
+                      key={i}
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-rose-500/10 text-rose-500 text-xs font-semibold border border-rose-500/20"
+                    >
+                      <XCircle className="h-3 w-3" />
+                      {kw.keyword}
+                    </span>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-xs text-muted-foreground">No critical missing keywords identified!</p>
+              )}
+            </div>
+
+            {/* ATS Top Highlights */}
+            <div className="glass rounded-2xl p-6">
+              <h3 className="font-heading text-base font-semibold flex items-center gap-2 mb-4">
+                <Layout className="h-5 w-5 text-emerald-500" />
+                ATS Formatting Checks
+              </h3>
+              <div className="space-y-3">
+                {analysis.atsCompatibility?.checks?.slice(0, 4).map((check, i) => (
+                  <div key={i} className="flex items-center justify-between text-xs">
+                    <span className="font-medium text-foreground/80">{check.name}</span>
+                    {check.passed ? (
+                      <span className="flex items-center gap-1 text-emerald-500 font-semibold">
+                        <CheckCircle className="h-3.5 w-3.5" /> Pass
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-1 text-amber-500 font-semibold">
+                        <AlertTriangle className="h-3.5 w-3.5" /> Review
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>
       )}
 
-      {/* Tab 2: Keyword Match */}
-      {activeTab === "keywords" && (
+      {/* Tab: Multi-Job Benchmark Full Breakdown */}
+      {activeTab === "market" && multiJob && (
         <motion.div variants={item} className="space-y-6">
-          <div className="grid gap-6 md:grid-cols-2">
-            {/* Matched Keywords */}
-            <div className="glass rounded-2xl p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-heading text-base font-semibold flex items-center gap-2 text-emerald-500">
-                  <CheckCircle className="h-5 w-5" />
-                  Matched Keywords ({matchedKeywords.length})
+          {/* Market Overview Hero */}
+          <div className="glass rounded-2xl p-6 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-heading text-lg font-bold flex items-center gap-2">
+                  <Layers className="h-5 w-5 text-primary-500" />
+                  Multi-Job Market Benchmark Analysis
                 </h3>
-                <span className="text-[11px] text-muted-foreground bg-muted px-2 py-0.5 rounded">
-                  Multi-tier (Exact, Normalized, Alias)
-                </span>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Comparing your resume against <strong>{multiJob.totalJobsAnalyzed} real industry job descriptions</strong> for &ldquo;{multiJob.benchmarkTitle}&rdquo;.
+                </p>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {matchedKeywords.map((kw, i) => {
-                  const matchType = (kw as any).matchType || (kw as any).category || "exact";
-                  return (
-                    <span
-                      key={i}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-medium border border-emerald-500/20"
-                      title={(kw as any).foundInContext ? `Found: "${(kw as any).foundInContext}"` : undefined}
-                    >
-                      <CheckCircle className="h-3 w-3" />
-                      {kw.keyword}
-                      {matchType && matchType !== "exact" && (
-                        <span className="text-[9px] uppercase font-bold tracking-wider px-1 py-0.5 rounded bg-emerald-500/20 text-emerald-700 dark:text-emerald-300">
-                          {matchType}
-                        </span>
-                      )}
-                    </span>
-                  );
-                })}
-              </div>
+              <span className="text-xs bg-muted px-2.5 py-1 rounded-lg text-muted-foreground font-mono">
+                {multiJob.totalJobsAnalyzed} Postings Evaluated
+              </span>
             </div>
 
-            {/* Missing Keywords */}
-            <div className="glass rounded-2xl p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-heading text-base font-semibold flex items-center gap-2 text-rose-500">
-                  <XCircle className="h-5 w-5" />
-                  Missing Keywords ({missingKeywords.length})
-                </h3>
-                <span className="text-[11px] text-muted-foreground bg-muted px-2 py-0.5 rounded">
-                  Actionable Targets
+            {/* Stats row */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+              <div className="p-4 rounded-xl border border-border/50 bg-background/50">
+                <span className="text-xs text-muted-foreground block">Market Average Score</span>
+                <span className={`text-2xl font-bold mt-1 block ${getScoreColor(multiJob.averageScore)}`}>
+                  {multiJob.averageScore}/100
                 </span>
+                <span className="text-[10px] text-muted-foreground">Mean across all jobs</span>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {missingKeywords.map((kw, i) => (
+
+              <div className="p-4 rounded-xl border border-border/50 bg-background/50">
+                <span className="text-xs text-muted-foreground block">Score Range</span>
+                <span className="text-2xl font-bold mt-1 block text-foreground">
+                  {multiJob.lowestScore}% - {multiJob.highestScore}%
+                </span>
+                <span className="text-[10px] text-muted-foreground">Lowest vs Highest match</span>
+              </div>
+
+              <div className="p-4 rounded-xl border border-border/50 bg-background/50">
+                <span className="text-xs text-muted-foreground block">Strong Job Matches</span>
+                <span className="text-2xl font-bold mt-1 block text-emerald-500">
+                  {multiJob.strongMatchCount} / {multiJob.totalJobsAnalyzed}
+                </span>
+                <span className="text-[10px] text-muted-foreground">Jobs with score &ge; 80%</span>
+              </div>
+
+              <div className="p-4 rounded-xl border border-border/50 bg-background/50">
+                <span className="text-xs text-muted-foreground block">Consensus Core Skills</span>
+                <span className="text-2xl font-bold mt-1 block text-primary-500">
+                  {multiJob.matchedCoreSkillsCount} / {multiJob.coreSkillsCount}
+                </span>
+                <span className="text-[10px] text-muted-foreground">Skills in &ge; 50% of jobs</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Individual Job Breakdown Cards */}
+          <div className="glass rounded-2xl p-6 space-y-4">
+            <h3 className="font-heading text-base font-semibold flex items-center gap-2">
+              <Building2 className="h-5 w-5 text-primary-500" />
+              Per-Job Match Comparison ({multiJob.jobBreakdowns.length} Job Postings)
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              See how your resume ranked against each individual company posting tested during this benchmark:
+            </p>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              {multiJob.jobBreakdowns.map((job, idx) => (
+                <div
+                  key={job.jobId || idx}
+                  className="rounded-2xl border border-border/60 bg-background/50 p-4 space-y-3 flex flex-col justify-between"
+                >
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                        Posting #{idx + 1}
+                      </span>
+                      <span
+                        className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
+                          job.status === "strong_match"
+                            ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                            : job.status === "moderate_match"
+                            ? "bg-amber-500/10 text-amber-500 border border-amber-500/20"
+                            : "bg-rose-500/10 text-rose-500 border border-rose-500/20"
+                        }`}
+                      >
+                        {job.overallScore}% • {job.status === "strong_match" ? "Strong Fit" : job.status === "moderate_match" ? "Moderate" : "Low Match"}
+                      </span>
+                    </div>
+
+                    <h4 className="font-bold text-sm text-foreground">{job.jobTitle}</h4>
+                    <p className="text-xs text-muted-foreground">
+                      {job.company} {job.experienceLevel ? `• ${job.experienceLevel}` : ""}
+                    </p>
+                  </div>
+
+                  {/* Matched & Missing Skills for this job */}
+                  <div className="space-y-2 pt-2 border-t border-border/40 text-xs">
+                    <div>
+                      <span className="text-[11px] font-medium text-emerald-500 block mb-1">
+                        Matched ({job.matchedSkillsCount}):
+                      </span>
+                      <div className="flex flex-wrap gap-1">
+                        {job.matchedSkills.slice(0, 5).map((s) => (
+                          <span
+                            key={s}
+                            className="text-[10px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded"
+                          >
+                            {s}
+                          </span>
+                        ))}
+                        {job.matchedSkillsCount > 5 && (
+                          <span className="text-[10px] text-muted-foreground">+{job.matchedSkillsCount - 5}</span>
+                        )}
+                      </div>
+                    </div>
+
+                    {job.missingSkills.length > 0 && (
+                      <div>
+                        <span className="text-[11px] font-medium text-rose-500 block mb-1">
+                          Missing ({job.missingSkillsCount}):
+                        </span>
+                        <div className="flex flex-wrap gap-1">
+                          {job.missingSkills.slice(0, 4).map((s) => (
+                            <span
+                              key={s}
+                              className="text-[10px] bg-rose-500/10 text-rose-500 px-1.5 py-0.5 rounded"
+                            >
+                              {s}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Market Skill Consensus Table */}
+          <div className="glass rounded-2xl p-6 space-y-4">
+            <h3 className="font-heading text-base font-semibold flex items-center gap-2">
+              <TrendingUp className="h-5 w-5 text-primary-500" />
+              Market Skill Consensus Matrix (Ranked by Frequency)
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              Skills demanded across multiple job postings. Core skills (appearing in &ge; 50% of jobs) are critical to pass ATS screening.
+            </p>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="border-b border-border/50 text-muted-foreground font-semibold uppercase tracking-wider text-[10px]">
+                    <th className="py-2.5 px-3">Skill / Technology</th>
+                    <th className="py-2.5 px-3">Market Frequency</th>
+                    <th className="py-2.5 px-3">Demand Level</th>
+                    <th className="py-2.5 px-3 text-right">Resume Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/30">
+                  {multiJob.consensusSkills.map((item, idx) => (
+                    <tr key={idx} className="hover:bg-muted/20 transition-colors">
+                      <td className="py-2.5 px-3 font-semibold text-foreground">
+                        {item.skill}
+                      </td>
+                      <td className="py-2.5 px-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-1.5 rounded-full bg-muted overflow-hidden">
+                            <div
+                              className="h-full bg-primary-500 rounded-full"
+                              style={{ width: `${item.percentage}%` }}
+                            />
+                          </div>
+                          <span className="font-mono text-[11px] text-muted-foreground">
+                            {item.frequency}/{multiJob.totalJobsAnalyzed} ({item.percentage}%)
+                          </span>
+                        </div>
+                      </td>
+                      <td className="py-2.5 px-3">
+                        {item.isCore ? (
+                          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-primary-500/10 text-primary-500">
+                            Core Must-Have
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-muted text-muted-foreground">
+                            Differentiator
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-2.5 px-3 text-right">
+                        {item.matchedInResume ? (
+                          <span className="inline-flex items-center gap-1 text-emerald-500 font-semibold">
+                            <CheckCircle className="h-3.5 w-3.5" /> Matched
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-rose-500 font-semibold">
+                            <XCircle className="h-3.5 w-3.5" /> Missing
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Tab 2: Keywords */}
+      {activeTab === "keywords" && (
+        <motion.div variants={item} className="grid gap-6 md:grid-cols-2">
+          {/* Matched Keywords */}
+          <div className="glass rounded-2xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-heading text-lg font-semibold flex items-center gap-2">
+                <CheckCircle className="h-5 w-5 text-emerald-500" />
+                Matched Keywords ({matchedKeywords.length})
+              </h3>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {matchedKeywords.length > 0 ? (
+                matchedKeywords.map((kw, i) => (
                   <span
                     key={i}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-500/10 text-rose-500 text-xs font-semibold border border-rose-500/20"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-medium border border-emerald-500/20"
+                  >
+                    <CheckCircle className="h-3 w-3" />
+                    {kw.keyword}
+                  </span>
+                ))
+              ) : (
+                <p className="text-xs text-muted-foreground">No keyword matches found.</p>
+              )}
+            </div>
+          </div>
+
+          {/* Missing Keywords */}
+          <div className="glass rounded-2xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-heading text-lg font-semibold flex items-center gap-2">
+                <XCircle className="h-5 w-5 text-rose-500" />
+                Missing Target Keywords ({missingKeywords.length})
+              </h3>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {missingKeywords.length > 0 ? (
+                missingKeywords.map((kw, i) => (
+                  <span
+                    key={i}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-500/10 text-rose-500 text-xs font-medium border border-rose-500/20"
                   >
                     <XCircle className="h-3 w-3" />
                     {kw.keyword}
-                    {kw.importance && (
-                      <span className="text-[10px] uppercase font-bold opacity-80 px-1 py-0.2 rounded bg-rose-500/20">
-                        {kw.importance}
-                      </span>
-                    )}
                   </span>
-                ))}
-              </div>
+                ))
+              ) : (
+                <p className="text-xs text-muted-foreground">No missing keywords! Excellent alignment.</p>
+              )}
             </div>
           </div>
         </motion.div>
@@ -465,34 +765,16 @@ export default function ATSResultPage() {
 
       {/* Tab 3: Section Analysis */}
       {activeTab === "analysis" && (
-        <motion.div variants={item} className="grid gap-6 md:grid-cols-2">
-          {/* Section Detection */}
-          <div className="glass rounded-2xl p-6">
-            <h3 className="font-heading text-base font-semibold flex items-center gap-2 mb-4">
+        <motion.div variants={item} className="space-y-6">
+          <div className="glass rounded-2xl p-6 space-y-4">
+            <h3 className="font-heading text-lg font-semibold flex items-center gap-2">
               <ListChecks className="h-5 w-5 text-primary-500" />
-              Detected Resume Sections
+              Technical &amp; Soft Skills Inventory
             </h3>
-            <div className="space-y-3">
-              {analysis.sectionDetection?.detected?.map((sec, i) => (
-                <div key={i} className="flex items-center justify-between p-3 rounded-xl border border-border/40 bg-muted/20">
-                  <span className="text-sm font-medium">{sec.name}</span>
-                  <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${sec.present ? "bg-emerald-500/10 text-emerald-500" : "bg-rose-500/10 text-rose-500"}`}>
-                    {sec.present ? "Present" : "Missing"}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Skills Breakdown */}
-          <div className="glass rounded-2xl p-6">
-            <h3 className="font-heading text-base font-semibold flex items-center gap-2 mb-4">
-              <Brain className="h-5 w-5 text-violet-500" />
-              Skills Matching
-            </h3>
             <div className="space-y-4">
               <div>
-                <p className="text-xs font-medium text-muted-foreground mb-2">Hard / Technical Skills</p>
+                <p className="text-xs font-medium text-muted-foreground mb-2">Hard &amp; Technical Skills</p>
                 <div className="flex flex-wrap gap-1.5">
                   {analysis.skillsAnalysis?.hardSkills?.map((sk, i) => (
                     <span
