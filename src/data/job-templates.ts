@@ -6315,29 +6315,320 @@ export const JOB_DEPARTMENTS: string[] = [
   "Business & Marketing"
 ];
 
+// ---------------------------------------------------------------------------
+// Query Alias & Normalization System
+// Allows users to type informal or abbreviated titles and still get matches.
+// ---------------------------------------------------------------------------
+
+/**
+ * Alias map: maps a normalized query token to one or more expanded search terms.
+ * Key: what the user may type (lowercase, stripped of spaces / dots / dashes)
+ * Value: array of strings to match against job titles / skills / categories.
+ */
+const QUERY_ALIASES: Record<string, string[]> = {
+  // ── Node.js / Node JS variants ──────────────────────────────────────────
+  nodejs: ["node.js", "node js", "nodejs", "node"],
+  "node js": ["node.js", "node js", "nodejs", "node"],
+  "node.js": ["node.js", "node js", "nodejs"],
+
+  // ── Frontend / Front-End ────────────────────────────────────────────────
+  frontend: ["frontend", "front end", "front-end", "ui engineer", "ui developer"],
+  "frontend developer": ["frontend developer", "frontend engineer", "front end developer"],
+  "front end developer": ["frontend developer", "frontend engineer", "front end"],
+  "front-end developer": ["frontend developer", "front end"],
+  "front end": ["frontend", "front end", "front-end"],
+  "front-end": ["frontend", "front end", "front-end"],
+
+  // ── Backend / Back-End ──────────────────────────────────────────────────
+  backend: ["backend", "back end", "back-end", "server side", "api developer"],
+  "backend developer": ["backend developer", "backend engineer", "back end developer", "server"],
+  "back end developer": ["backend developer", "backend engineer"],
+  "back-end developer": ["backend developer", "backend engineer"],
+  "back end": ["backend", "back end", "back-end"],
+  "back-end": ["backend", "back end", "back-end"],
+
+  // ── Full Stack / Fullstack ──────────────────────────────────────────────
+  fullstack: ["full stack", "fullstack", "full-stack"],
+  "full stack": ["full stack", "fullstack", "full-stack"],
+  "full-stack": ["full stack", "fullstack", "full-stack"],
+  "fullstack developer": ["full stack developer", "full stack engineer", "fullstack"],
+  "full stack developer": ["full stack developer", "full stack engineer"],
+  "full-stack developer": ["full stack developer", "full stack engineer"],
+
+  // ── MERN ────────────────────────────────────────────────────────────────
+  mern: ["mern", "mern stack", "mongo express react node"],
+  "mern developer": ["mern stack", "mern developer"],
+  "mern stack developer": ["mern stack", "full stack"],
+  "mern stack": ["mern", "mern stack"],
+
+  // ── MEAN ────────────────────────────────────────────────────────────────
+  mean: ["mean", "mean stack", "mongo express angular node"],
+  "mean stack": ["mean", "mean stack"],
+
+  // ── React ───────────────────────────────────────────────────────────────
+  react: ["react", "react.js", "reactjs", "react developer"],
+  reactjs: ["react", "react.js", "reactjs"],
+  "react.js": ["react", "react.js", "reactjs"],
+  "react developer": ["react developer", "react engineer", "react.js"],
+  "react engineer": ["react developer", "react engineer"],
+
+  // ── Next.js ─────────────────────────────────────────────────────────────
+  nextjs: ["next.js", "nextjs", "next js"],
+  "next js": ["next.js", "nextjs", "next js"],
+  "next.js developer": ["next.js", "nextjs"],
+  "nextjs developer": ["next.js", "nextjs"],
+
+  // ── Vue.js ──────────────────────────────────────────────────────────────
+  vue: ["vue", "vue.js", "vuejs"],
+  vuejs: ["vue", "vue.js", "vuejs"],
+  "vue.js": ["vue", "vue.js", "vuejs"],
+  "vue developer": ["vue", "vue.js"],
+
+  // ── Angular ─────────────────────────────────────────────────────────────
+  angular: ["angular", "angularjs"],
+  "angular developer": ["angular", "angularjs developer"],
+
+  // ── Python ──────────────────────────────────────────────────────────────
+  python: ["python", "python developer", "python engineer"],
+  "python developer": ["python", "django", "fastapi", "flask"],
+  "python engineer": ["python", "django", "fastapi"],
+  django: ["django", "python", "django developer"],
+  "django developer": ["django", "python"],
+  fastapi: ["fastapi", "python", "fast api"],
+  flask: ["flask", "python"],
+
+  // ── Go / Golang ─────────────────────────────────────────────────────────
+  golang: ["golang", "go language", "go (golang)", "go microservices"],
+  "go developer": ["golang", "go language", "go (golang)"],
+  "golang developer": ["golang", "go language"],
+  go: ["golang", "go language", "go (golang)"],
+
+  // ── Java ────────────────────────────────────────────────────────────────
+  java: ["java", "java developer", "spring boot", "java engineer"],
+  "java developer": ["java", "spring boot", "java spring"],
+  "spring boot developer": ["spring boot", "java"],
+  "spring boot": ["spring boot", "java"],
+
+  // ── Kotlin ──────────────────────────────────────────────────────────────
+  kotlin: ["kotlin", "android kotlin", "jetpack compose"],
+  "kotlin developer": ["kotlin", "android"],
+
+  // ── C# / .NET ───────────────────────────────────────────────────────────
+  "c#": ["c#", ".net", "dotnet", "asp.net"],
+  dotnet: ["c#", ".net", "dotnet", "asp.net"],
+  ".net": ["c#", ".net", "dotnet", "asp.net"],
+  "dotnet developer": ["c#", ".net", "dotnet"],
+  "c# developer": ["c#", ".net", "dotnet"],
+
+  // ── PHP / Laravel ───────────────────────────────────────────────────────
+  php: ["php", "laravel", "php developer"],
+  laravel: ["laravel", "php"],
+  "php developer": ["php", "laravel"],
+  "laravel developer": ["laravel", "php"],
+
+  // ── Ruby / Rails ────────────────────────────────────────────────────────
+  ruby: ["ruby", "ruby on rails", "rails"],
+  rails: ["ruby on rails", "rails", "ruby"],
+  "ruby developer": ["ruby", "rails", "ruby on rails"],
+  "rails developer": ["rails", "ruby on rails"],
+
+  // ── Rust ────────────────────────────────────────────────────────────────
+  rust: ["rust", "rust developer", "rust systems"],
+  "rust developer": ["rust", "systems engineer"],
+
+  // ── TypeScript ──────────────────────────────────────────────────────────
+  typescript: ["typescript", "ts developer"],
+  ts: ["typescript"],
+  "typescript developer": ["typescript", "ts"],
+
+  // ── JavaScript ──────────────────────────────────────────────────────────
+  javascript: ["javascript", "js developer", "js engineer"],
+  js: ["javascript", "js"],
+  "javascript developer": ["javascript", "js"],
+  "js developer": ["javascript", "js"],
+
+  // ── DevOps ──────────────────────────────────────────────────────────────
+  devops: ["devops", "dev ops", "site reliability"],
+  "devops engineer": ["devops engineer", "devops", "cloud engineer"],
+  "cloud engineer": ["cloud engineer", "devops", "aws", "azure", "gcp"],
+  sre: ["site reliability", "sre", "devops"],
+  "site reliability": ["sre", "site reliability engineer"],
+
+  // ── AWS / Azure / GCP ───────────────────────────────────────────────────
+  aws: ["aws", "amazon web services", "cloud engineer"],
+  azure: ["azure", "microsoft azure", "cloud"],
+  gcp: ["gcp", "google cloud", "cloud"],
+  "cloud developer": ["aws", "azure", "gcp", "cloud"],
+
+  // ── Kubernetes / Docker ─────────────────────────────────────────────────
+  kubernetes: ["kubernetes", "k8s"],
+  k8s: ["kubernetes", "k8s"],
+  docker: ["docker", "containerization", "devops"],
+
+  // ── Database ────────────────────────────────────────────────────────────
+  dba: ["database administrator", "dba", "postgresql dba", "mysql dba"],
+  "database developer": ["postgresql", "mysql", "mongodb", "dba"],
+  postgresql: ["postgresql", "postgres", "dba"],
+  postgres: ["postgresql", "postgres"],
+  mongodb: ["mongodb", "mongo", "nosql"],
+  mysql: ["mysql", "sql", "database"],
+
+  // ── Data & AI ───────────────────────────────────────────────────────────
+  "data scientist": ["data scientist", "machine learning", "data science"],
+  "data analyst": ["data analyst", "analytics", "business intelligence"],
+  "machine learning engineer": ["machine learning", "ml engineer", "ai engineer"],
+  "ml engineer": ["machine learning", "ml engineer"],
+  "ai engineer": ["ai engineer", "llm", "machine learning", "ai"],
+  llm: ["llm", "large language model", "rag", "ai engineer"],
+  "data engineer": ["data engineer", "etl", "data pipeline"],
+
+  // ── QA ──────────────────────────────────────────────────────────────────
+  "qa engineer": ["qa", "quality assurance", "test engineer", "automation"],
+  "test engineer": ["qa", "quality assurance", "test engineer"],
+  "automation engineer": ["automation", "qa", "selenium", "playwright", "cypress"],
+  playwright: ["playwright", "qa", "automation"],
+  selenium: ["selenium", "qa", "automation"],
+  cypress: ["cypress", "qa", "automation"],
+  sdet: ["sdet", "qa", "automation engineer"],
+
+  // ── Mobile ──────────────────────────────────────────────────────────────
+  "mobile developer": ["mobile developer", "ios", "android", "react native", "flutter"],
+  ios: ["ios", "swift", "apple"],
+  android: ["android", "kotlin", "java android"],
+  "react native": ["react native", "mobile developer"],
+  flutter: ["flutter", "dart", "mobile developer"],
+  swift: ["swift", "ios", "apple"],
+
+  // ── Cybersecurity ───────────────────────────────────────────────────────
+  "security engineer": ["security engineer", "cybersecurity", "appsec", "cloud security"],
+  cybersecurity: ["cybersecurity", "security", "appsec", "soc"],
+  "penetration tester": ["penetration", "pentesting", "ethical hacker", "security"],
+  soc: ["soc analyst", "security operations", "cybersecurity"],
+
+  // ── Product & Design ────────────────────────────────────────────────────
+  "product manager": ["product manager", "pm", "product owner"],
+  "product designer": ["product designer", "ux designer", "ui ux"],
+  "ux designer": ["ux designer", "ui/ux", "product designer"],
+  "ui ux": ["ui/ux", "product designer", "ux designer"],
+  "ui/ux": ["ui/ux", "product designer"],
+
+  // ── Software Engineer (generic) ─────────────────────────────────────────
+  "software engineer": ["software engineer", "software developer", "developer"],
+  "software developer": ["software developer", "software engineer"],
+  developer: ["developer", "engineer"],
+  engineer: ["engineer", "developer"],
+};
+
+/**
+ * Normalize a query string: lowercase, collapse spaces, remove dots/dashes.
+ * Returns both the cleaned version and an alias-free canonical form.
+ */
+function normalizeQuery(q: string): string {
+  return q.toLowerCase().replace(/\s+/g, " ").trim();
+}
+
+/**
+ * Expand a user query into a set of candidate search tokens using the alias map.
+ */
+function expandQueryTokens(query: string): string[] {
+  const normalized = normalizeQuery(query);
+  // Also try without punctuation (e.g. "node.js" -> "nodejs")
+  const noPunct = normalized.replace(/[.\-\/]/g, "");
+
+  const candidates = new Set<string>([normalized, noPunct]);
+
+  // Look up aliases for the full query
+  if (QUERY_ALIASES[normalized]) {
+    QUERY_ALIASES[normalized].forEach((a) => candidates.add(a));
+  }
+  if (noPunct !== normalized && QUERY_ALIASES[noPunct]) {
+    QUERY_ALIASES[noPunct].forEach((a) => candidates.add(a));
+  }
+
+  // Also check if the query is a suffix/token within alias keys
+  for (const [key, expansions] of Object.entries(QUERY_ALIASES)) {
+    if (
+      key.includes(normalized) ||
+      normalized.includes(key) ||
+      noPunct.includes(key.replace(/[.\-\/]/g, ""))
+    ) {
+      expansions.forEach((e) => candidates.add(e));
+    }
+  }
+
+  return Array.from(candidates);
+}
+
+/**
+ * Checks if any candidate token matches a job's searchable fields.
+ */
+function jobMatchesTokens(job: JobTemplate, tokens: string[]): boolean {
+  const titleLower = job.title.toLowerCase();
+  const categoryLower = job.category.toLowerCase();
+  const deptLower = job.department.toLowerCase();
+  // Also normalize title / category to remove punctuation for fuzzy matching
+  const titleNorm = titleLower.replace(/[.\-\/()&]/g, " ").replace(/\s+/g, " ").trim();
+  const catNorm = categoryLower.replace(/[.\-\/()&]/g, " ").replace(/\s+/g, " ").trim();
+  const skillsLower = job.requiredSkills.map((s) => s.toLowerCase());
+  const skillsNorm = skillsLower.map((s) => s.replace(/[.\-\/()&]/g, " ").trim());
+
+  for (const token of tokens) {
+    if (!token) continue;
+    if (
+      titleLower.includes(token) ||
+      titleNorm.includes(token) ||
+      categoryLower.includes(token) ||
+      catNorm.includes(token) ||
+      deptLower.includes(token) ||
+      skillsLower.some((s) => s.includes(token)) ||
+      skillsNorm.some((s) => s.includes(token))
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Score a job for relevance to tokens — title matches rank higher than skill matches.
+ */
+function scoreJob(job: JobTemplate, tokens: string[]): number {
+  const titleLower = job.title.toLowerCase();
+  const titleNorm = titleLower.replace(/[.\-\/()&]/g, " ").replace(/\s+/g, " ");
+  let score = 0;
+
+  for (const token of tokens) {
+    if (!token) continue;
+    if (titleLower.includes(token)) score += 10;
+    else if (titleNorm.includes(token)) score += 8;
+    if (job.category.toLowerCase().includes(token)) score += 4;
+    if (job.requiredSkills.some((s) => s.toLowerCase().includes(token))) score += 2;
+  }
+  return score;
+}
+
 /**
  * Searches job templates by title, designation, department, or required skills.
+ * Supports fuzzy aliases: "nodejs", "fullstack", "mern developer", etc.
  */
 export function searchJobTemplates(query = "", department = "All", limit = 20): JobTemplate[] {
-  const cleanQuery = query.toLowerCase().trim();
   const filterDept = department && department !== "All" ? department.toLowerCase() : null;
 
-  return JOB_TEMPLATES.filter((job) => {
-    // Department filter
-    if (filterDept && job.department.toLowerCase() !== filterDept) {
-      return false;
-    }
+  // Filter by department first
+  const pool = filterDept
+    ? JOB_TEMPLATES.filter((j) => j.department.toLowerCase() === filterDept)
+    : JOB_TEMPLATES;
 
-    if (!cleanQuery) return true;
+  if (!query.trim()) return pool.slice(0, limit);
 
-    // Search across title, category, department, and required skills
-    const matchesTitle = job.title.toLowerCase().includes(cleanQuery);
-    const matchesCategory = job.category.toLowerCase().includes(cleanQuery);
-    const matchesDept = job.department.toLowerCase().includes(cleanQuery);
-    const matchesSkills = job.requiredSkills.some((s) => s.toLowerCase().includes(cleanQuery));
+  const tokens = expandQueryTokens(query);
 
-    return matchesTitle || matchesCategory || matchesDept || matchesSkills;
-  }).slice(0, limit);
+  const matched = pool.filter((job) => jobMatchesTokens(job, tokens));
+
+  // Sort by relevance score descending
+  matched.sort((a, b) => scoreJob(b, tokens) - scoreJob(a, tokens));
+
+  return matched.slice(0, limit);
 }
 
 /**
@@ -6348,12 +6639,20 @@ export function getJobTemplateById(id: string): JobTemplate | undefined {
 }
 
 /**
- * Finds a job template by exact or closest title.
+ * Finds a job template by exact or closest title (alias-aware).
  */
 export function getJobTemplateByTitle(title: string): JobTemplate | undefined {
   const clean = title.toLowerCase().trim();
-  return (
-    JOB_TEMPLATES.find((j) => j.title.toLowerCase() === clean) ||
-    JOB_TEMPLATES.find((j) => j.title.toLowerCase().includes(clean))
-  );
+
+  // 1. Exact match
+  const exact = JOB_TEMPLATES.find((j) => j.title.toLowerCase() === clean);
+  if (exact) return exact;
+
+  // 2. Title contains the query
+  const contains = JOB_TEMPLATES.find((j) => j.title.toLowerCase().includes(clean));
+  if (contains) return contains;
+
+  // 3. Alias-expanded search — return first / best result
+  const results = searchJobTemplates(title, "All", 1);
+  return results[0];
 }
