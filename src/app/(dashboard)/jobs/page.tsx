@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Briefcase, Link as LinkIcon, Plus, Globe, Sparkles, Loader2, ArrowRight } from "lucide-react";
-import { toast, showAlert } from "@/lib/sweetalert";
+import { toast } from "@/lib/sweetalert";
 import Link from "next/link";
+import { DesignationSelector } from "@/components/ats/designation-selector";
+import { JobTemplate } from "@/data/job-templates";
 
 interface Job {
   id: string;
@@ -21,7 +22,7 @@ const mockJobs: Job[] = [
     title: "Senior Frontend Engineer",
     company: "Google",
     sourceUrl: "https://careers.google.com/jobs/123",
-    content: "We are looking for a Senior Frontend Engineer proficient in React, TypeScript...",
+    content: "We are looking for a Senior Frontend Engineer proficient in React, TypeScript, responsive layouts, Next.js, and web performance optimization.",
     createdAt: "2026-07-31",
   },
   {
@@ -29,7 +30,7 @@ const mockJobs: Job[] = [
     title: "Full Stack Engineer",
     company: "Stripe",
     sourceUrl: "https://stripe.com/jobs/456",
-    content: "Stripe is seeking a Full Stack Engineer to build developer payment experiences...",
+    content: "Stripe is seeking a Full Stack Engineer to build developer payment experiences with Node.js, PostgreSQL, React, and scalable microservices.",
     createdAt: "2026-07-28",
   },
 ];
@@ -41,6 +42,13 @@ export default function JobsPage() {
   const [title, setTitle] = useState("");
   const [company, setCompany] = useState("");
   const [content, setContent] = useState("");
+
+  const handleSelectTemplate = (template: JobTemplate) => {
+    setTitle(template.title);
+    setContent(template.description);
+    if (!company) setCompany("Industry Standard");
+    toast.success(`Loaded "${template.title}" template with target ATS keywords!`);
+  };
 
   const handleImportUrl = async () => {
     if (!url) {
@@ -97,7 +105,7 @@ export default function JobsPage() {
           Job Description Manager
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Import job postings via URL or text and save them for instant ATS optimization.
+          Import job postings via URL, select from 300+ industry designation templates, or save custom roles for instant ATS optimization.
         </p>
       </div>
 
@@ -121,7 +129,7 @@ export default function JobsPage() {
             <button
               onClick={handleImportUrl}
               disabled={importing}
-              className="inline-flex h-10 items-center gap-1.5 rounded-xl border border-border px-3 text-xs font-semibold hover:bg-muted/50 transition-colors disabled:opacity-50"
+              className="inline-flex h-10 items-center gap-1.5 rounded-xl border border-border px-3 text-xs font-semibold hover:bg-muted/50 transition-colors disabled:opacity-50 cursor-pointer"
             >
               {importing ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Sparkles className="h-3.5 w-3.5" />} Fetch
             </button>
@@ -129,7 +137,15 @@ export default function JobsPage() {
 
           <hr className="border-border/50" />
 
-          <div className="space-y-3">
+          {/* Designation Template Selector */}
+          <div className="space-y-1.5">
+            <DesignationSelector
+              selectedTitle={title}
+              onSelect={handleSelectTemplate}
+            />
+          </div>
+
+          <div className="space-y-3 pt-2">
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase text-muted-foreground">Job Title *</label>
               <input
@@ -144,7 +160,7 @@ export default function JobsPage() {
               <label className="mb-1 block text-xs font-semibold uppercase text-muted-foreground">Company</label>
               <input
                 type="text"
-                placeholder="e.g. Google"
+                placeholder="e.g. Google or Industry Standard"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
                 className="h-10 w-full rounded-xl border border-border bg-background px-3 text-xs transition-colors focus:border-primary-500 focus:outline-none"
@@ -153,16 +169,16 @@ export default function JobsPage() {
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase text-muted-foreground">Job Content *</label>
               <textarea
-                rows={5}
-                placeholder="Job description text..."
+                rows={6}
+                placeholder="Job description text (requirements, qualifications, responsibilities)..."
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="w-full rounded-xl border border-border bg-background p-3 text-xs transition-colors focus:border-primary-500 focus:outline-none resize-none"
+                className="w-full rounded-xl border border-border bg-background p-3 text-xs transition-colors focus:border-primary-500 focus:outline-none resize-none font-sans"
               />
             </div>
             <button
               onClick={handleSaveJob}
-              className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl gradient-bg text-xs font-semibold text-white shadow-lg shadow-primary-500/25 transition-all hover:scale-[1.01]"
+              className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl gradient-bg text-xs font-semibold text-white shadow-lg shadow-primary-500/25 transition-all hover:scale-[1.01] cursor-pointer"
             >
               <Plus className="h-4 w-4" /> Save Job Description
             </button>
@@ -182,13 +198,13 @@ export default function JobsPage() {
                   </div>
                   <span className="text-[10px] text-muted-foreground">{job.createdAt}</span>
                 </div>
-                <p className="text-xs text-muted-foreground line-clamp-2">{job.content}</p>
+                <p className="text-xs text-muted-foreground line-clamp-3">{job.content}</p>
                 <div className="flex justify-end pt-1">
                   <Link
-                    href={`/upload`}
+                    href={`/ats-checker?title=${encodeURIComponent(job.title)}`}
                     className="inline-flex items-center gap-1 text-xs font-semibold text-primary-500 hover:text-primary-400"
                   >
-                    Optimize Resume <ArrowRight className="h-3 w-3" />
+                    Check ATS Compatibility <ArrowRight className="h-3 w-3" />
                   </Link>
                 </div>
               </div>

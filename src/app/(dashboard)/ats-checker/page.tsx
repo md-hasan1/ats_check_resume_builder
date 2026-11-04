@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useCallback, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDropzone } from "react-dropzone";
 import { useUploadStore } from "@/stores/upload-store";
 import { useAnalysisStore } from "@/stores/analysis-store";
-import { toast, showAlert } from "@/lib/sweetalert";
+import { toast } from "@/lib/sweetalert";
 import {
   Upload,
   FileText,
@@ -21,6 +21,8 @@ import {
   HelpCircle,
 } from "lucide-react";
 import { fileSize } from "@/lib/utils";
+import { DesignationSelector } from "@/components/ats/designation-selector";
+import { getJobTemplateById, getJobTemplateByTitle } from "@/data/job-templates";
 
 const ACCEPTED_FILE_TYPES = {
   "application/pdf": [".pdf"],
@@ -32,8 +34,9 @@ const ACCEPTED_FILE_TYPES = {
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
-export default function ATSCheckerPage() {
+function ATSCheckerContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const {
     file,
     setFile,
@@ -53,6 +56,28 @@ export default function ATSCheckerPage() {
   const { setIsAnalyzing, setCurrentStep, setProgress } = useAnalysisStore();
   const [isAnalyzing, setLocalAnalyzing] = useState(false);
   const [uploadComplete, setUploadComplete] = useState(Boolean(file && resumeId));
+
+  // Auto-populate from URL query params (e.g. ?role=senior-react-developer or ?title=React)
+  useEffect(() => {
+    const roleParam = searchParams.get("role");
+    const titleParam = searchParams.get("title");
+
+    if (roleParam) {
+      const template = getJobTemplateById(roleParam);
+      if (template) {
+        setJobTitle(template.title);
+        setJobDescription(template.description);
+        toast.success(`Loaded "${template.title}" designation template!`);
+      }
+    } else if (titleParam) {
+      const template = getJobTemplateByTitle(titleParam);
+      if (template) {
+        setJobTitle(template.title);
+        setJobDescription(template.description);
+        toast.success(`Loaded "${template.title}" designation template!`);
+      }
+    }
+  }, [searchParams, setJobTitle, setJobDescription]);
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
@@ -116,7 +141,7 @@ export default function ATSCheckerPage() {
 
   const handleAnalyze = async () => {
     if (!resumeId || !jobDescription) {
-      toast.error("Please upload a resume and paste a job description.");
+      toast.error("Please upload a resume and select or paste a job description.");
       return;
     }
 
@@ -188,7 +213,7 @@ export default function ATSCheckerPage() {
           ATS Resume Checker
         </h1>
         <p className="mt-1 text-muted-foreground">
-          Upload your resume and paste the target job description to get an in-depth ATS compatibility scan.
+          Upload your resume and type or select from 300+ industry designations to check ATS compatibility, match score, and missing keywords.
         </p>
       </div>
 
@@ -278,7 +303,7 @@ export default function ATSCheckerPage() {
                       )}
                       <button
                         onClick={handleRemoveFile}
-                        className="rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+                        className="rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-foreground cursor-pointer"
                         title="Remove file"
                       >
                         <X className="h-4 w-4" />
@@ -290,7 +315,7 @@ export default function ATSCheckerPage() {
             </AnimatePresence>
           </div>
 
-          {/* Optional Job Metadata */}
+          {/* Target Role Metadata */}
           <div className="glass rounded-2xl p-6 space-y-4">
             <h3 className="font-heading text-sm font-semibold flex items-center gap-2">
               <Briefcase className="h-4 w-4 text-muted-foreground" />
@@ -311,7 +336,7 @@ export default function ATSCheckerPage() {
               </div>
               <div>
                 <label className="block text-xs font-medium text-muted-foreground mb-1">
-                  Job Posting URL
+                  Job Posting URL (Optional)
                 </label>
                 <div className="relative">
                   <LinkIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -328,36 +353,58 @@ export default function ATSCheckerPage() {
           </div>
         </div>
 
-        {/* Right Column — Job Description */}
+        {/* Right Column — Job Description with 300+ Designation Selector */}
         <div className="space-y-6">
-          <div className="glass rounded-2xl p-6 flex flex-col h-full justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-4">
+          <div className="glass rounded-2xl p-6 flex flex-col h-full justify-between space-y-4">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
                 <h2 className="font-heading text-lg font-semibold flex items-center gap-2">
                   <FileText className="h-5 w-5 text-primary-500" />
-                  2. Job Description
+                  2. Target Designation &amp; Job Description
                 </h2>
-                <span className="text-xs text-muted-foreground">
-                  {jobDescription.length} characters (min 50)
-                </span>
               </div>
 
-              <textarea
-                placeholder="Paste the complete job description here (requirements, qualifications, responsibilities, required technologies)..."
-                value={jobDescription}
-                onChange={(e) => setJobDescription(e.target.value)}
-                rows={12}
-                className="w-full rounded-xl border border-border bg-background p-4 text-sm leading-relaxed transition-colors focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-none font-sans"
+              {/* Instant 300+ Designation Selector & Autocomplete */}
+              <DesignationSelector
+                selectedTitle={jobTitle}
+                onSelect={(template) => {
+                  setJobTitle(template.title);
+                  setJobDescription(template.description);
+                  toast.success(`Loaded "${template.title}" template with target ATS keywords!`);
+                }}
+                onClear={() => {
+                  // Keep whatever text is in description or let user clear it
+                }}
               />
 
-              <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
-                <HelpCircle className="h-3.5 w-3.5 flex-shrink-0" />
-                <span>The more detailed the job description, the more accurate the keyword &amp; skill matching.</span>
+              {/* Textarea for Job Description */}
+              <div className="space-y-1.5 pt-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Full Job Description (Auto-filled or Custom)
+                  </label>
+                  <span className="text-xs text-muted-foreground">
+                    {jobDescription.length} characters (min 50)
+                  </span>
+                </div>
+
+                <textarea
+                  placeholder="Type a designation above to auto-populate from 300+ industry templates, or paste your target job description here..."
+                  value={jobDescription}
+                  onChange={(e) => setJobDescription(e.target.value)}
+                  rows={10}
+                  className="w-full rounded-xl border border-border bg-background p-4 text-sm leading-relaxed transition-colors focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-none font-sans"
+                />
+
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <HelpCircle className="h-3.5 w-3.5 flex-shrink-0" />
+                  <span>The more detailed the job description, the more accurate the keyword &amp; skill matching.</span>
+                </div>
               </div>
             </div>
 
             {/* Submit Action */}
-            <div className="mt-6 pt-4 border-t border-border/40">
+            <div className="pt-4 border-t border-border/40">
               <button
                 onClick={handleAnalyze}
                 disabled={!canAnalyze}
@@ -385,5 +432,20 @@ export default function ATSCheckerPage() {
         </div>
       </div>
     </motion.div>
+  );
+}
+
+export default function ATSCheckerPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-[400px] flex-col items-center justify-center gap-3">
+          <Loader2 className="h-8 w-8 animate-spin text-primary-500" />
+          <p className="text-sm text-muted-foreground">Loading ATS Checker...</p>
+        </div>
+      }
+    >
+      <ATSCheckerContent />
+    </Suspense>
   );
 }

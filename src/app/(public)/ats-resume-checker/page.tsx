@@ -1,12 +1,20 @@
 import Link from "next/link";
-import { FileSearch, CheckCircle, ArrowRight, ShieldCheck, Zap } from "lucide-react";
+import { FileSearch, CheckCircle, ArrowRight, ShieldCheck, Zap, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
+import { PublicDesignationSearch } from "@/components/ats/public-designation-search";
 
 export const metadata: Metadata = {
-  title: "Free AI ATS Resume Checker & Scanner (2026)",
+  title: "Free AI ATS Resume Checker & Scanner (300+ Designations)",
   description:
-    "Check your resume against ATS algorithms in seconds. Get instant match scores, missing keyword suggestions, and formatting checks.",
-  keywords: ["ATS resume checker", "resume scanner", "ATS score", "resume keyword match"],
+    "Type any job title or designation to scan your resume against ATS algorithms in seconds. Get instant match scores, missing keyword suggestions, and formatting checks.",
+  keywords: [
+    "ATS resume checker",
+    "resume scanner",
+    "ATS score",
+    "resume keyword match",
+    "job designation ATS",
+    "ATS resume keywords",
+  ],
 };
 
 export default function ATSResumeCheckerSEOPage() {
@@ -18,20 +26,15 @@ export default function ATSResumeCheckerSEOPage() {
           <FileSearch className="h-3.5 w-3.5" /> AI ATS Resume Scanner
         </span>
         <h1 className="font-heading text-4xl font-extrabold sm:text-5xl tracking-tight leading-tight">
-          Beat the ATS & Land <span className="gradient-text">3x More Interviews</span>
+          Beat the ATS for Your Exact <span className="gradient-text">Job Designation</span>
         </h1>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Scan your resume against any job description in seconds. Get instant keyword match analysis, formatting checks, and zero-hallucination recommendations.
+          Select or type any job designation from our library of 300+ real-world industry roles to test your resume match score, missing keywords, and recruiter scan readiness.
         </p>
-        <div className="pt-4 flex justify-center">
-          <Link
-            href="/upload"
-            className="inline-flex h-12 items-center gap-2 rounded-2xl gradient-bg px-8 text-sm font-semibold text-white shadow-xl shadow-primary-500/25 transition-all hover:scale-[1.02]"
-          >
-            Check Your Resume Free <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
       </div>
+
+      {/* Interactive Designation Search & Role Showcase */}
+      <PublicDesignationSearch />
 
       {/* Feature Grid */}
       <div className="grid gap-6 sm:grid-cols-3">
@@ -57,6 +60,26 @@ export default function ATSResumeCheckerSEOPage() {
           <p className="text-xs text-muted-foreground leading-relaxed">
             Guarantees no fake companies, experience, or degrees are ever added to your resume.
           </p>
+        </div>
+      </div>
+
+      {/* Bottom CTA */}
+      <div className="glass rounded-3xl p-8 sm:p-12 text-center space-y-4 border border-border/80">
+        <h2 className="font-heading text-2xl sm:text-3xl font-bold">
+          Ready to Test Your Resume Score?
+        </h2>
+        <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+          Upload your resume now, type your target job designation, and receive an instant, multi-factor ATS report with zero guesswork.
+        </p>
+        <div className="pt-2">
+          <Link
+            href="/ats-checker"
+            className="inline-flex h-12 items-center gap-2 rounded-2xl gradient-bg px-8 text-sm font-semibold text-white shadow-xl shadow-primary-500/25 transition-all hover:scale-[1.02] cursor-pointer"
+          >
+            <Sparkles className="h-4 w-4" />
+            <span>Launch ATS Resume Checker</span>
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </div>
